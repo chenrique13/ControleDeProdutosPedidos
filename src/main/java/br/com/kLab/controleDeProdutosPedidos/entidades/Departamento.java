@@ -29,15 +29,19 @@ public class Departamento implements Serializable{
 	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name= "codigo")
-	private Integer codigoDepartamento;
+	@Column
+	private Integer codigo;
 	
 	/**
 	 * Descricao do Departamento.
 	 */
+	@Column
 	private String descricao;
 	
-	 @OneToMany(mappedBy = "departamento", cascade = CascadeType.ALL)
+	/**
+	 * Associacao do Departamento com o {@link Produto}.
+	 */
+	@OneToMany(mappedBy = "departamento", cascade = CascadeType.ALL)
 	private List<Produto> produtos;
 
 	/**
@@ -53,8 +57,8 @@ public class Departamento implements Serializable{
 	 * @param codigo
 	 * @param descricao
 	 */
-	public Departamento(Integer codigoDepartamento, String descricao) {
-		this.codigoDepartamento = codigoDepartamento;
+	public Departamento(Integer codigo, String descricao) {
+		this.codigo = codigo;
 		this.descricao = descricao;
 	}
 
@@ -63,8 +67,8 @@ public class Departamento implements Serializable{
 	 *
 	 * @return Integer
 	 */
-	public Integer getCodigoDepartamento() {
-		return codigoDepartamento;
+	public Integer getCodigo() {
+		return codigo;
 	}
 
 	/**
@@ -72,8 +76,8 @@ public class Departamento implements Serializable{
 	 * 
 	 * @param codigo
 	 */
-	public void setCodigoDepartamento(Integer codigoDepartamento) {
-		this.codigoDepartamento = codigoDepartamento;
+	public void setCodigo(Integer codigo) {
+		this.codigo = codigo;
 	}
 
 	/**
@@ -101,7 +105,7 @@ public class Departamento implements Serializable{
 	 */
 	@Override
 	public int hashCode() {
-		return Objects.hash(codigoDepartamento);
+		return Objects.hash(codigo);
 	}
 
 	/**
@@ -111,29 +115,14 @@ public class Departamento implements Serializable{
 	 * @return boolean
 	 */
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Departamento other = (Departamento) obj;
-		return Objects.equals(codigoDepartamento, other.codigoDepartamento);
-	}
-
-	/**
-	 * Retorna uma representação em texto do Departamento.
-	 * 
-	 * @return String
-	 */
-	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Departamento [codigoDepartamento=");
-		builder.append(codigoDepartamento);
+		builder.append("Departamento [codigo=");
+		builder.append(codigo);
 		builder.append(", descricao=");
 		builder.append(descricao);
+		builder.append(", produtos=");
+		builder.append(produtos);
 		builder.append("]");
 		return builder.toString();
 	}

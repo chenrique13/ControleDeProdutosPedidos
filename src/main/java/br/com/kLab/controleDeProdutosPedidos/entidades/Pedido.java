@@ -29,16 +29,17 @@ public class Pedido implements Serializable {
 	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "numero")
-	private Integer numeroPedido;
+	@Column
+	private Integer numero;
 
 	/**
 	 * Data do Pedido.
 	 */
+	@Column
 	private Date data;
 
 	/**
-	 * Associacao do Pedido com a tabela intermediaria.
+	 * Associacao do Pedido com a tabela intermediaria {@link ProdutoPedido}.
 	 */
 	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
 	private List<ProdutoPedido> produtoPedidos;
@@ -56,8 +57,8 @@ public class Pedido implements Serializable {
 	 * @param numero
 	 * @param data
 	 */
-	public Pedido(Integer numeroPedido, Date data) {
-		this.numeroPedido = numeroPedido;
+	public Pedido(Integer numero, Date data) {
+		this.numero = numero;
 		this.data = data;
 	}
 
@@ -66,8 +67,8 @@ public class Pedido implements Serializable {
 	 *
 	 * @return Integer
 	 */
-	public Integer getNumeroPedido() {
-		return numeroPedido;
+	public Integer getNumero() {
+		return numero;
 	}
 
 	/**
@@ -75,8 +76,8 @@ public class Pedido implements Serializable {
 	 * 
 	 * @param numero
 	 */
-	public void setNumeroPedido(Integer numeroPedido) {
-		this.numeroPedido = numeroPedido;
+	public void setNumeroPedido(Integer numero) {
+		this.numero = numero;
 	}
 
 	/**
@@ -104,7 +105,7 @@ public class Pedido implements Serializable {
 	 */
 	@Override
 	public int hashCode() {
-		return Objects.hash(numeroPedido);
+		return Objects.hash(numero);
 	}
 
 	/**
@@ -122,7 +123,7 @@ public class Pedido implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Pedido other = (Pedido) obj;
-		return Objects.equals(numeroPedido, other.numeroPedido);
+		return Objects.equals(numero, other.numero);
 	}
 
 	/**
@@ -133,10 +134,12 @@ public class Pedido implements Serializable {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Pedido [numeroPedido=");
-		builder.append(numeroPedido);
+		builder.append("Pedido [numero=");
+		builder.append(numero);
 		builder.append(", data=");
 		builder.append(data);
+		builder.append(", produtoPedidos=");
+		builder.append(produtoPedidos);
 		builder.append("]");
 		return builder.toString();
 	}

@@ -30,28 +30,30 @@ public class Produto implements Serializable {
 	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "codigo")
-	private Integer codigoProduto;
+	@Column
+	private Integer codigo;
 
 	/**
 	 * Descricao do Produto.
 	 */
+	@Column
 	private String descricao;
 
 	/**
 	 * Preco do Produto.
 	 */
+	@Column
 	private Double preco;
 
 	/**
-	 * Associacao obrigatoria do Produto com o Departamento.
+	 * Associacao obrigatoria do Produto com o {@link Departamento}
 	 */
 	@ManyToOne
 	@JoinColumn(name = "codigoDepartamento", nullable = false)
 	private Departamento departamento;
 
 	/**
-	 * Associacao do Produto com a tabela intermediaria.
+	 * Associacao do Produto com a tabela intermediaria {@link ProdutoPedido}.
 	 */
 	@OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
 	private List<ProdutoPedido> produtoPedidos;
@@ -70,8 +72,8 @@ public class Produto implements Serializable {
 	 * @param descricao
 	 * @param preco
 	 */
-	public Produto(Integer codigoProduto, String descricao, Double preco) {
-		this.codigoProduto = codigoProduto;
+	public Produto(Integer codigo, String descricao, Double preco) {
+		this.codigo = codigo;
 		this.descricao = descricao;
 		this.preco = preco;
 	}
@@ -81,8 +83,8 @@ public class Produto implements Serializable {
 	 *
 	 * @return Integer
 	 */
-	public Integer getCodigoProduto() {
-		return codigoProduto;
+	public Integer getCodigo() {
+		return codigo;
 	}
 
 	/**
@@ -91,7 +93,7 @@ public class Produto implements Serializable {
 	 * @param codigo
 	 */
 	public void setCodigoProduto(Integer codigo) {
-		this.codigoProduto = codigo;
+		this.codigo = codigo;
 	}
 
 	/**
@@ -137,7 +139,7 @@ public class Produto implements Serializable {
 	 */
 	@Override
 	public int hashCode() {
-		return Objects.hash(codigoProduto);
+		return Objects.hash(codigo);
 	}
 
 	/**
@@ -147,31 +149,18 @@ public class Produto implements Serializable {
 	 * @return boolean
 	 */
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Produto other = (Produto) obj;
-		return Objects.equals(codigoProduto, other.codigoProduto);
-	}
-
-	/**
-	 * Retorna uma representação em texto do Produto.
-	 * 
-	 * @return String
-	 */
-	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Produto [codigoProduto=");
-		builder.append(codigoProduto);
+		builder.append("Produto [codigo=");
+		builder.append(codigo);
 		builder.append(", descricao=");
 		builder.append(descricao);
 		builder.append(", preco=");
 		builder.append(preco);
+		builder.append(", departamento=");
+		builder.append(departamento);
+		builder.append(", produtoPedidos=");
+		builder.append(produtoPedidos);
 		builder.append("]");
 		return builder.toString();
 	}

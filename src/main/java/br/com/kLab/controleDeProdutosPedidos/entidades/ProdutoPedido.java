@@ -3,6 +3,7 @@ package br.com.kLab.controleDeProdutosPedidos.entidades;
 import java.io.Serializable;
 import java.util.Objects;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -32,11 +33,13 @@ public class ProdutoPedido implements Serializable {
 	/**
 	 * Quantidade do {@link Produto} no {@link Pedido}.
 	 */
+	@Column
 	private Integer quantidade;
 
 	/**
 	 * Valor de venda do {@link Produto} no {@link Pedido}.
 	 */
+	@Column
 	private Double valorVenda;
 
 	/**
@@ -44,7 +47,7 @@ public class ProdutoPedido implements Serializable {
 	 */
 	@ManyToOne
 	@MapsId("codigoProduto")
-	@JoinColumn(name = "codigo")
+	@JoinColumn(name = "codigoProduto")
 	private Produto produto;
 
 	/**
@@ -52,7 +55,7 @@ public class ProdutoPedido implements Serializable {
 	 */
 	@ManyToOne
 	@MapsId("numeroPedido")
-	@JoinColumn(name = "numero")
+	@JoinColumn(name = "numeroPedido")
 	private Pedido pedido;
 
 	/**
