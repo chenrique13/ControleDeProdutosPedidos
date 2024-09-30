@@ -1,12 +1,16 @@
 package br.com.kLab.controleDeProdutosPedidos.entidades;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 /**
  * Classe representando um departamento do sistema de Controle de
@@ -25,12 +29,16 @@ public class Departamento implements Serializable{
 	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer codigo;
+	@Column(name= "codigo")
+	private Integer codigoDepartamento;
 	
 	/**
 	 * Descricao do Departamento.
 	 */
 	private String descricao;
+	
+	 @OneToMany(mappedBy = "departamento", cascade = CascadeType.ALL)
+	private List<Produto> produtos;
 
 	/**
 	 * Construtor padrão sem argumentos.
@@ -45,8 +53,8 @@ public class Departamento implements Serializable{
 	 * @param codigo
 	 * @param descricao
 	 */
-	public Departamento(Integer codigo, String descricao) {
-		this.codigo = codigo;
+	public Departamento(Integer codigoDepartamento, String descricao) {
+		this.codigoDepartamento = codigoDepartamento;
 		this.descricao = descricao;
 	}
 
@@ -55,8 +63,8 @@ public class Departamento implements Serializable{
 	 *
 	 * @return Integer
 	 */
-	public Integer getCodigo() {
-		return codigo;
+	public Integer getCodigoDepartamento() {
+		return codigoDepartamento;
 	}
 
 	/**
@@ -64,8 +72,8 @@ public class Departamento implements Serializable{
 	 * 
 	 * @param codigo
 	 */
-	public void setCodigo(Integer codigo) {
-		this.codigo = codigo;
+	public void setCodigoDepartamento(Integer codigoDepartamento) {
+		this.codigoDepartamento = codigoDepartamento;
 	}
 
 	/**
@@ -93,7 +101,7 @@ public class Departamento implements Serializable{
 	 */
 	@Override
 	public int hashCode() {
-		return Objects.hash(codigo);
+		return Objects.hash(codigoDepartamento);
 	}
 
 	/**
@@ -111,7 +119,7 @@ public class Departamento implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Departamento other = (Departamento) obj;
-		return Objects.equals(codigo, other.codigo);
+		return Objects.equals(codigoDepartamento, other.codigoDepartamento);
 	}
 
 	/**
@@ -122,8 +130,8 @@ public class Departamento implements Serializable{
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Departamento [codigo=");
-		builder.append(codigo);
+		builder.append("Departamento [codigoDepartamento=");
+		builder.append(codigoDepartamento);
 		builder.append(", descricao=");
 		builder.append(descricao);
 		builder.append("]");

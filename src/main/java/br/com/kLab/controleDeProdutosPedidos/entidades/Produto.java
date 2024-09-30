@@ -1,12 +1,18 @@
 package br.com.kLab.controleDeProdutosPedidos.entidades;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 /**
  * Classe representando um produto do sistema de Controle de Produtos/Pedidos.
@@ -24,7 +30,8 @@ public class Produto implements Serializable {
 	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer codigo;
+	@Column(name = "codigo")
+	private Integer codigoProduto;
 
 	/**
 	 * Descricao do Produto.
@@ -35,6 +42,19 @@ public class Produto implements Serializable {
 	 * Preco do Produto.
 	 */
 	private Double preco;
+
+	/**
+	 * Associacao obrigatoria do Produto com o Departamento.
+	 */
+	@ManyToOne
+	@JoinColumn(name = "codigoDepartamento", nullable = false)
+	private Departamento departamento;
+
+	/**
+	 * Associacao do Produto com a tabela intermediaria.
+	 */
+	@OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
+	private List<ProdutoPedido> produtoPedidos;
 
 	/**
 	 * Construtor padrão sem argumentos.
@@ -50,8 +70,8 @@ public class Produto implements Serializable {
 	 * @param descricao
 	 * @param preco
 	 */
-	public Produto(Integer codigo, String descricao, Double preco) {
-		this.codigo = codigo;
+	public Produto(Integer codigoProduto, String descricao, Double preco) {
+		this.codigoProduto = codigoProduto;
 		this.descricao = descricao;
 		this.preco = preco;
 	}
@@ -61,8 +81,8 @@ public class Produto implements Serializable {
 	 *
 	 * @return Integer
 	 */
-	public Integer getCodigo() {
-		return codigo;
+	public Integer getCodigoProduto() {
+		return codigoProduto;
 	}
 
 	/**
@@ -70,8 +90,8 @@ public class Produto implements Serializable {
 	 * 
 	 * @param codigo
 	 */
-	public void setCodigo(Integer codigo) {
-		this.codigo = codigo;
+	public void setCodigoProduto(Integer codigo) {
+		this.codigoProduto = codigo;
 	}
 
 	/**
@@ -117,7 +137,7 @@ public class Produto implements Serializable {
 	 */
 	@Override
 	public int hashCode() {
-		return Objects.hash(codigo);
+		return Objects.hash(codigoProduto);
 	}
 
 	/**
@@ -135,7 +155,7 @@ public class Produto implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Produto other = (Produto) obj;
-		return Objects.equals(codigo, other.codigo);
+		return Objects.equals(codigoProduto, other.codigoProduto);
 	}
 
 	/**
@@ -146,8 +166,8 @@ public class Produto implements Serializable {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Produto [codigo=");
-		builder.append(codigo);
+		builder.append("Produto [codigoProduto=");
+		builder.append(codigoProduto);
 		builder.append(", descricao=");
 		builder.append(descricao);
 		builder.append(", preco=");

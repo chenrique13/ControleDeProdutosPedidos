@@ -2,12 +2,16 @@ package br.com.kLab.controleDeProdutosPedidos.entidades;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 /**
  * Classe representando um pedido do sistema de Controle de Produtos/Pedidos.
@@ -25,7 +29,8 @@ public class Pedido implements Serializable {
 	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer numero;
+	@Column(name = "numero")
+	private Integer numeroPedido;
 
 	/**
 	 * Data do Pedido.
@@ -33,8 +38,14 @@ public class Pedido implements Serializable {
 	private Date data;
 
 	/**
-	 * Construtor padrão sem argumentos.
+	 * Associacao do Pedido com a tabela intermediaria.
 	 */
+	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+	private List<ProdutoPedido> produtoPedidos;
+	
+	/**
+	 * Construtor padrão sem argumentos.
+	 */	
 	public Pedido() {
 
 	}
@@ -45,8 +56,8 @@ public class Pedido implements Serializable {
 	 * @param numero
 	 * @param data
 	 */
-	public Pedido(Integer numero, Date data) {
-		this.numero = numero;
+	public Pedido(Integer numeroPedido, Date data) {
+		this.numeroPedido = numeroPedido;
 		this.data = data;
 	}
 
@@ -55,8 +66,8 @@ public class Pedido implements Serializable {
 	 *
 	 * @return Integer
 	 */
-	public Integer getNumero() {
-		return numero;
+	public Integer getNumeroPedido() {
+		return numeroPedido;
 	}
 
 	/**
@@ -64,8 +75,8 @@ public class Pedido implements Serializable {
 	 * 
 	 * @param numero
 	 */
-	public void setNumero(Integer numero) {
-		this.numero = numero;
+	public void setNumeroPedido(Integer numeroPedido) {
+		this.numeroPedido = numeroPedido;
 	}
 
 	/**
@@ -93,7 +104,7 @@ public class Pedido implements Serializable {
 	 */
 	@Override
 	public int hashCode() {
-		return Objects.hash(numero);
+		return Objects.hash(numeroPedido);
 	}
 
 	/**
@@ -111,7 +122,7 @@ public class Pedido implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Pedido other = (Pedido) obj;
-		return Objects.equals(numero, other.numero);
+		return Objects.equals(numeroPedido, other.numeroPedido);
 	}
 
 	/**
@@ -122,8 +133,8 @@ public class Pedido implements Serializable {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Pedido [numero=");
-		builder.append(numero);
+		builder.append("Pedido [numeroPedido=");
+		builder.append(numeroPedido);
 		builder.append(", data=");
 		builder.append(data);
 		builder.append("]");
