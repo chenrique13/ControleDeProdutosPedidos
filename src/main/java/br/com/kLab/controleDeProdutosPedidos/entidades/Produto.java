@@ -92,7 +92,7 @@ public class Produto implements Serializable {
 	 * 
 	 * @param codigo
 	 */
-	public void setCodigoProduto(Integer codigo) {
+	public void setCodigo(Integer codigo) {
 		this.codigo = codigo;
 	}
 
@@ -130,6 +130,43 @@ public class Produto implements Serializable {
 	 */
 	public void setPreco(Double preco) {
 		this.preco = preco;
+	}
+
+	/**
+	 * Obtem o Departamento do Produto.
+	 *
+	 * @return {@link Departamento}
+	 */
+	public Departamento getDepartamento() {
+		return departamento;
+	}
+
+	/**
+	 * Define o Departamento do Produto.
+	 * 
+	 * @param departamento
+	 */
+	public void setDepartamento(Departamento departamento) {
+		this.departamento = departamento;
+	}
+
+	
+	/**
+	 * Obtem a lista de {@link ProdutoPedido}.
+	 *
+	 * @return List <{@link ProdutoPedido}>
+	 */
+	public List<ProdutoPedido> getProdutoPedidos() {
+		return produtoPedidos;
+	}
+
+	/**
+	 * Define a lista de {@link ProdutoPedido}.
+	 *
+	 * @param produtoPedidos
+	 */
+	public void setProdutoPedidos(List<ProdutoPedido> produtoPedidos) {
+		this.produtoPedidos = produtoPedidos;
 	}
 
 	/**

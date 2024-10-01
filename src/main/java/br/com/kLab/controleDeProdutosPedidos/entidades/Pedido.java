@@ -76,7 +76,7 @@ public class Pedido implements Serializable {
 	 * 
 	 * @param numero
 	 */
-	public void setNumeroPedido(Integer numero) {
+	public void setNumero(Integer numero) {
 		this.numero = numero;
 	}
 
@@ -96,6 +96,24 @@ public class Pedido implements Serializable {
 	 */
 	public void setData(Date data) {
 		this.data = data;
+	}
+
+	/**
+	 * Obtem a lista de {@link ProdutoPedido}.
+	 *
+	 * @return List <{@link ProdutoPedido}>
+	 */
+	public List<ProdutoPedido> getProdutoPedidos() {
+		return produtoPedidos;
+	}
+
+	/**
+	 * Define a lista de {@link ProdutoPedido}.
+	 *
+	 * @param produtoPedidos
+	 */
+	public void setProdutoPedidos(List<ProdutoPedido> produtoPedidos) {
+		this.produtoPedidos = produtoPedidos;
 	}
 
 	/**

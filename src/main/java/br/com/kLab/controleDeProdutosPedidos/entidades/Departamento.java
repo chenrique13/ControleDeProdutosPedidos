@@ -97,6 +97,24 @@ public class Departamento implements Serializable{
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
+	
+	/**
+	 * Obtem a lista de {@link Produto}.
+	 *
+	 * @return List <{@link Produto}>
+	 */
+	public List<Produto> getProdutos() {
+		return produtos;
+	}
+
+	/**
+	 * Define a lista de {@link Produto}.
+	 *
+	 * @param produtos
+	 */
+	public void setProdutos(List<Produto> produtos) {
+		this.produtos = produtos;
+	}
 
 	/**
 	 * Gera um hash de um Departamento a partir do seu codigo.
