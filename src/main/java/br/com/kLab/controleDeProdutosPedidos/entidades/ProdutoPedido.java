@@ -47,7 +47,7 @@ public class ProdutoPedido implements Serializable {
 	 */
 	@ManyToOne
 	@MapsId("codigoProduto")
-	@JoinColumn(name = "codigoProduto")
+	@JoinColumn(name = "codigo_produto")
 	private Produto produto;
 
 	/**
@@ -55,7 +55,7 @@ public class ProdutoPedido implements Serializable {
 	 */
 	@ManyToOne
 	@MapsId("numeroPedido")
-	@JoinColumn(name = "numeroPedido")
+	@JoinColumn(name = "numero_pedido")
 	private Pedido pedido;
 
 	/**
