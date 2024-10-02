@@ -186,6 +186,23 @@ public class Produto implements Serializable {
 	 * @return boolean
 	 */
 	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Produto other = (Produto) obj;
+		return Objects.equals(codigo, other.codigo);
+	}
+	
+	/**
+	 * Retorna uma representação em texto do Produto.
+	 * 
+	 * @return String
+	 */
+	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Produto [codigo=");
