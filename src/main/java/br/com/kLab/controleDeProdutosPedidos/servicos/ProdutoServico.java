@@ -8,6 +8,10 @@ import org.springframework.stereotype.Service;
 import br.com.kLab.controleDeProdutosPedidos.entidades.Produto;
 import br.com.kLab.controleDeProdutosPedidos.repositorios.ProdutoRepositorio;
 
+/**
+ * Classe responsável por fornecer operações de negócio para a entidade
+ * {@link Produto}.
+ */
 @Service
 public class ProdutoServico {
 
@@ -15,7 +19,7 @@ public class ProdutoServico {
 	private ProdutoRepositorio repositorioProduto;
 
 	/**
-	 * O metodo obtem um produto cadastrato no banco de dados, se existir.
+	 * O metodo obtem um {@link Produto} cadastrato no banco de dados, se existir.
 	 *
 	 * @autor Carlos Pereira
 	 *
