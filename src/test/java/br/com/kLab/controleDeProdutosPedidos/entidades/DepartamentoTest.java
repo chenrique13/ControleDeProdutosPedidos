@@ -113,7 +113,7 @@ public class DepartamentoTest {
      */
     @Test
     public void testToString() {
-        String expected = "Departamento [codigo=1, descricao=Construção, produtos=[]]";
-        assertEquals(expected, departamento.toString());
+        String representacaoTextual = "Departamento [codigo=1, descricao=Construção, produtos=[]]";
+        assertEquals(representacaoTextual, departamento.toString());
     }
 }
