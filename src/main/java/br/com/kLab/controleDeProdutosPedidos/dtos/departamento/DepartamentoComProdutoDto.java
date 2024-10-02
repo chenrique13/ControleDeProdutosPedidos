@@ -1,28 +1,26 @@
 package br.com.kLab.controleDeProdutosPedidos.dtos.departamento;
 
+import java.util.List;
+
+import br.com.kLab.controleDeProdutosPedidos.dtos.produto.ProdutoDepartamentoDto;
+
 public class DepartamentoComProdutoDto {
 
 	private Integer codigoDepartamento;
 
 	private String descricaoDepartamento;
 
-	private Integer codigoProduto;
-
-	private String descricaoProduto;
-
-	private Double precoProduto;
+	private List<ProdutoDepartamentoDto> produtos;
 
 	public DepartamentoComProdutoDto() {
 
 	}
 
-	public DepartamentoComProdutoDto(Integer codigoDepartamento, String descricaoDepartamento, Integer codigoProduto,
-			String descricaoProduto, Double precoProduto) {
+	public DepartamentoComProdutoDto(Integer codigoDepartamento, String descricaoDepartamento,
+			List<ProdutoDepartamentoDto> produtos) {
 		this.codigoDepartamento = codigoDepartamento;
 		this.descricaoDepartamento = descricaoDepartamento;
-		this.codigoProduto = codigoProduto;
-		this.descricaoProduto = descricaoProduto;
-		this.precoProduto = precoProduto;
+		this.produtos = produtos;
 	}
 
 	public Integer getCodigoDepartamento() {
@@ -33,16 +31,8 @@ public class DepartamentoComProdutoDto {
 		return descricaoDepartamento;
 	}
 
-	public Integer getCodigoProduto() {
-		return codigoProduto;
-	}
-
-	public String getDescricaoProduto() {
-		return descricaoProduto;
-	}
-
-	public Double getPrecoProduto() {
-		return precoProduto;
+	public List<ProdutoDepartamentoDto> getProdutos() {
+		return produtos;
 	}
 
 	@Override
@@ -52,12 +42,8 @@ public class DepartamentoComProdutoDto {
 		builder.append(codigoDepartamento);
 		builder.append(", descricaoDepartamento=");
 		builder.append(descricaoDepartamento);
-		builder.append(", codigoProduto=");
-		builder.append(codigoProduto);
-		builder.append(", descricaoProduto=");
-		builder.append(descricaoProduto);
-		builder.append(", precoProduto=");
-		builder.append(precoProduto);
+		builder.append(", produtos=");
+		builder.append(produtos);
 		builder.append("]");
 		return builder.toString();
 	}
