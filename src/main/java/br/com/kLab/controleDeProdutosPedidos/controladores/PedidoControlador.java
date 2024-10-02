@@ -22,6 +22,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import br.com.kLab.controleDeProdutosPedidos.dtos.pedido.PedidoComProdutoDto;
 import br.com.kLab.controleDeProdutosPedidos.dtos.pedido.PedidoDto;
 import br.com.kLab.controleDeProdutosPedidos.entidades.Pedido;
+import br.com.kLab.controleDeProdutosPedidos.entidades.Produto;
 import br.com.kLab.controleDeProdutosPedidos.servicos.PedidoServico;
 
 /**
@@ -35,6 +36,14 @@ public class PedidoControlador {
 	@Autowired
 	private PedidoServico servicoPedido;
 
+	/**
+	 * Endpoint responsavel por buscar um {@link Pedido} com produtos por id.
+	 *
+	 * @autor Carlos Pereira
+	 *
+	 * @param idPedido
+	 * @return ResponseEntity<List<{@link PedidoComProdutoDto}>>
+	 */
 	@GetMapping(path = "/{idPedido}")
 	public ResponseEntity<PedidoComProdutoDto> consultarPorId(@PathVariable Integer idPedido) {
 		PedidoComProdutoDto pedidoDto = servicoPedido.consultarPedidoPorIdDto(idPedido);
@@ -45,6 +54,17 @@ public class PedidoControlador {
 		return ResponseEntity.internalServerError().build();
 	}
 
+	/**
+	 * Endpoint responsavel por buscar os {@link Pedido} com produtos por um
+	 * intervalo de datas, ordenados pelo numero do {@link Pedido} e codigo do
+	 * {@link Produto}.
+	 *
+	 * @autor Carlos Pereira
+	 *
+	 * @param dataInicial
+	 * @param dataFinal
+	 * @return ResponseEntity<List<{@link PedidoComProdutoDto}>>
+	 */
 	@GetMapping
 	public ResponseEntity<List<PedidoComProdutoDto>> consultarPedidosPorData(@RequestParam String dataInicial,
 			@RequestParam String dataFinal) {
@@ -63,6 +83,14 @@ public class PedidoControlador {
 		return ResponseEntity.internalServerError().build();
 	}
 
+	/**
+	 * EndPoint responsavel por inserir um novo {@link Pedido} no sistema.
+	 *
+	 * @autor Carlos Pereira
+	 *
+	 * @param novoPedidoDto
+	 * @return ResponseEntity< {@link PedidoComProdutoDto} >
+	 */
 	@PostMapping
 	public ResponseEntity<PedidoComProdutoDto> inserir(@RequestBody PedidoDto novoPedidoDto) {
 		PedidoComProdutoDto novoPedido = servicoPedido.inserirPedido(novoPedidoDto);
@@ -71,16 +99,34 @@ public class PedidoControlador {
 		return ResponseEntity.created(uri).body(novoPedido);
 	}
 
-    @PutMapping("/{idPedido}")
-    public ResponseEntity<PedidoComProdutoDto> atualizarPedido(@PathVariable Integer idPedido, @RequestBody PedidoDto pedidoDto) {
-    	PedidoComProdutoDto pedidoDtoAtualizado = servicoPedido.atualizarPedido(idPedido, pedidoDto);
-		
-    	if (pedidoDtoAtualizado != null) {
-			return ResponseEntity.ok(pedidoDtoAtualizado);			
+	/**
+	 * EndPoint responsavel por atualizar um {@link Pedido} do sistema.
+	 *
+	 * @autor Carlos Pereira
+	 *
+	 * @param idPedido
+	 * @param pedidoDto
+	 * @return ResponseEntity< {@link PedidoComProdutoDto} >
+	 */
+	@PutMapping("/{idPedido}")
+	public ResponseEntity<PedidoComProdutoDto> atualizarPedido(@PathVariable Integer idPedido,
+			@RequestBody PedidoDto pedidoDto) {
+		PedidoComProdutoDto pedidoDtoAtualizado = servicoPedido.atualizarPedido(idPedido, pedidoDto);
+
+		if (pedidoDtoAtualizado != null) {
+			return ResponseEntity.ok(pedidoDtoAtualizado);
 		}
 		return ResponseEntity.internalServerError().build();
-    }
-	
+	}
+
+	/**
+	 * EndPoint responsavel por excluir um {@link Pedido} do sistema.
+	 *
+	 * @autor Carlos Pereira
+	 *
+	 * @param idPedido
+	 * @return ResponseEntity< {@link Pedido} >
+	 */
 	@DeleteMapping(path = "/{idPedido}")
 	public ResponseEntity<Pedido> excluir(@PathVariable Integer idPedido) {
 		servicoPedido.excluirPedido(idPedido);
