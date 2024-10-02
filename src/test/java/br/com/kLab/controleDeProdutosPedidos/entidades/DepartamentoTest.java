@@ -29,10 +29,10 @@ public class DepartamentoTest {
      */
     @Test
     public void testConstrutorSemArgumentos() {
-        Departamento dep = new Departamento();
-        assertNull(dep.getCodigo());
-        assertNull(dep.getDescricao());
-        assertNull(dep.getProdutos());
+        Departamento departamento = new Departamento();
+        assertNull(departamento.getCodigo());
+        assertNull(departamento.getDescricao());
+        assertNull(departamento.getProdutos());
     }
 
     /**
@@ -84,15 +84,15 @@ public class DepartamentoTest {
     @SuppressWarnings("unlikely-arg-type")
 	@Test
     public void testEquals() {
-        Departamento dep1 = new Departamento(1, "Construção", produtos);
-        Departamento dep2 = new Departamento(1, "Construção", produtos);
-        Departamento dep3 = new Departamento(2, "Roupas", produtos);
+        Departamento departamento1 = new Departamento(1, "Construção", produtos);
+        Departamento departamento2 = new Departamento(1, "Construção", produtos);
+        Departamento departamento3 = new Departamento(2, "Roupas", produtos);
 
-        assertTrue(dep1.equals(dep1));
-        assertFalse(dep1.equals(null));
-        assertFalse(dep1.equals("OutraClasse"));
-        assertTrue(dep1.equals(dep2));
-        assertFalse(dep1.equals(dep3));
+        assertTrue(departamento1.equals(departamento1));
+        assertFalse(departamento1.equals(null));
+        assertFalse(departamento1.equals("OutraClasse"));
+        assertTrue(departamento1.equals(departamento2));
+        assertFalse(departamento1.equals(departamento3));
     }
 
     /**
@@ -101,10 +101,10 @@ public class DepartamentoTest {
      */
     @Test
     public void testHashCode() {
-        Departamento dep1 = new Departamento(1, "Construção", produtos);
-        Departamento dep2 = new Departamento(1, "Construção", produtos);
+        Departamento departamento1 = new Departamento(1, "Construção", produtos);
+        Departamento departamento2 = new Departamento(1, "Construção", produtos);
 
-        assertEquals(dep1.hashCode(), dep2.hashCode());
+        assertEquals(departamento1.hashCode(), departamento2.hashCode());
     }
 
     /**
