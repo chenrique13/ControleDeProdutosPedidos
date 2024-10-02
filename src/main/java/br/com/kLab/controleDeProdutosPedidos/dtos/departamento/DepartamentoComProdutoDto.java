@@ -1,10 +1,22 @@
 package br.com.kLab.controleDeProdutosPedidos.dtos.departamento;
 
+import java.io.Serializable;
 import java.util.List;
 
 import br.com.kLab.controleDeProdutosPedidos.dtos.produto.ProdutoDepartamentoDto;
+import br.com.kLab.controleDeProdutosPedidos.entidades.Departamento;
+import br.com.kLab.controleDeProdutosPedidos.entidades.Produto;
 
-public class DepartamentoComProdutoDto {
+/**
+ * Classe responsável por ser o modelo de dados do {@link Departamento} com
+ * {@link Produto}.
+ *
+ * @autor Carlos Pereira
+ *
+ */
+public class DepartamentoComProdutoDto implements Serializable {
+
+	private static final long serialVersionUID = 8935947566609314372L;
 
 	private Integer codigoDepartamento;
 

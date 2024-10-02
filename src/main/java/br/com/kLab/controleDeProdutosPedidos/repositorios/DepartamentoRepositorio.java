@@ -10,6 +10,10 @@ import org.springframework.stereotype.Repository;
 import br.com.kLab.controleDeProdutosPedidos.entidades.Departamento;
 import br.com.kLab.controleDeProdutosPedidos.entidades.Produto;
 
+/**
+ * Classe responsável por conter métodos para realização de operações no banco de dados
+ * da classe {@link Departamento}.
+ */
 @Repository
 public interface DepartamentoRepositorio extends JpaRepository<Departamento, Integer> {
 

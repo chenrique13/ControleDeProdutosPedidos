@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.kLab.controleDeProdutosPedidos.dtos.departamento.DepartamentoComProdutoDto;
 import br.com.kLab.controleDeProdutosPedidos.entidades.Departamento;
+import br.com.kLab.controleDeProdutosPedidos.entidades.Produto;
 import br.com.kLab.controleDeProdutosPedidos.servicos.DepartamentoServico;
 
 /**
@@ -26,7 +27,8 @@ public class DepartamentoControlador {
 
 	/**
 	 * Endpoint responsavel por buscar um {@link Departamento} com produtos por um
-	 * intervalo de codigo.
+	 * intervalo de codigo, ordenados pelo codigo do {@link Departamento} e
+	 * descricao do {@link Produto}.
 	 *
 	 * @autor Carlos Pereira
 	 *

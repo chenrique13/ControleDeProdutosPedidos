@@ -14,6 +14,10 @@ import br.com.kLab.controleDeProdutosPedidos.entidades.Departamento;
 import br.com.kLab.controleDeProdutosPedidos.entidades.Produto;
 import br.com.kLab.controleDeProdutosPedidos.repositorios.DepartamentoRepositorio;
 
+/**
+ * Classe responsável por fornecer operações de negócio para a entidade
+ * {@link Departamento}.
+ */
 @Service
 public class DepartamentoServico {
 
