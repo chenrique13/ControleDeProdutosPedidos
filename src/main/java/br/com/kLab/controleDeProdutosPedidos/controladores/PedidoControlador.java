@@ -24,6 +24,7 @@ import br.com.kLab.controleDeProdutosPedidos.dtos.pedido.PedidoDto;
 import br.com.kLab.controleDeProdutosPedidos.entidades.Pedido;
 import br.com.kLab.controleDeProdutosPedidos.entidades.Produto;
 import br.com.kLab.controleDeProdutosPedidos.servicos.PedidoServico;
+import io.swagger.v3.oas.annotations.Operation;
 
 /**
  * Classe responsável por ser o endpoint para operações relacionadas ao
@@ -44,6 +45,7 @@ public class PedidoControlador {
 	 * @param idPedido
 	 * @return ResponseEntity<List<{@link PedidoComProdutoDto}>>
 	 */
+	@Operation(summary = "Busca Pedido por Id", description = "Buscar pedidos com produtos por id.")
 	@GetMapping(path = "/{idPedido}")
 	public ResponseEntity<PedidoComProdutoDto> consultarPorId(@PathVariable Integer idPedido) {
 		PedidoComProdutoDto pedidoDto = servicoPedido.consultarPedidoPorIdDto(idPedido);
@@ -65,6 +67,8 @@ public class PedidoControlador {
 	 * @param dataFinal
 	 * @return ResponseEntity<List<{@link PedidoComProdutoDto}>>
 	 */
+	@Operation(summary = "Busca Pedido por Data", description = "Buscar pedidos com produtos, "
+			+ "filtrados pelas datas inicial e final, ordenados pelo numero do pedido e codigo do produto.")
 	@GetMapping
 	public ResponseEntity<List<PedidoComProdutoDto>> consultarPedidosPorData(@RequestParam String dataInicial,
 			@RequestParam String dataFinal) {
@@ -91,6 +95,7 @@ public class PedidoControlador {
 	 * @param novoPedidoDto
 	 * @return ResponseEntity< {@link PedidoComProdutoDto} >
 	 */
+	@Operation(summary = "Inserir Pedido", description = "Cria um novo pedido no sistema.")
 	@PostMapping
 	public ResponseEntity<PedidoComProdutoDto> inserir(@RequestBody PedidoDto novoPedidoDto) {
 		PedidoComProdutoDto novoPedido = servicoPedido.inserirPedido(novoPedidoDto);
@@ -108,6 +113,7 @@ public class PedidoControlador {
 	 * @param pedidoDto
 	 * @return ResponseEntity< {@link PedidoComProdutoDto} >
 	 */
+	@Operation(summary = "Atualizar Pedido", description = "Atualiza um pedido e seus produtos no sistema.")
 	@PutMapping("/{idPedido}")
 	public ResponseEntity<PedidoComProdutoDto> atualizarPedido(@PathVariable Integer idPedido,
 			@RequestBody PedidoDto pedidoDto) {
@@ -127,6 +133,7 @@ public class PedidoControlador {
 	 * @param idPedido
 	 * @return ResponseEntity< {@link Void} >
 	 */
+	@Operation(summary = "Excluir Pedido", description = "Exclui um pedido no sistema")
 	@DeleteMapping(path = "/{idPedido}")
 	public ResponseEntity<Void> excluir(@PathVariable Integer idPedido) {
 		servicoPedido.excluirPedido(idPedido);

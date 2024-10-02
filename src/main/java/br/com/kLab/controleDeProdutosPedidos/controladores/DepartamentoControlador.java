@@ -13,6 +13,7 @@ import br.com.kLab.controleDeProdutosPedidos.dtos.departamento.DepartamentoComPr
 import br.com.kLab.controleDeProdutosPedidos.entidades.Departamento;
 import br.com.kLab.controleDeProdutosPedidos.entidades.Produto;
 import br.com.kLab.controleDeProdutosPedidos.servicos.DepartamentoServico;
+import io.swagger.v3.oas.annotations.Operation;
 
 /**
  * Classe responsável por ser o endpoint para operações relacionadas ao
@@ -36,6 +37,8 @@ public class DepartamentoControlador {
 	 * @param codigoFinal
 	 * @return ResponseEntity<List<{@link DepartamentoComProdutoDto}>>
 	 */
+	@Operation(summary = "Busca Departamentos por Codigo", description = "Buscar departamentos com produtos, "
+			+ "filtrados pelo codigo inicial e final, ordenados pelo codigo do departamento e descricao do produto.")
 	@GetMapping
 	public ResponseEntity<List<DepartamentoComProdutoDto>> consultarDepartamentoComProdutoPorCodigo(
 			@RequestParam Integer codigoInicial, @RequestParam Integer codigoFinal) {
