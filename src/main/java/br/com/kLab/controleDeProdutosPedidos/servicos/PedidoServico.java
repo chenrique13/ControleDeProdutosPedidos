@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,6 +35,9 @@ public class PedidoServico {
 
 	@Autowired
 	private ProdutoServico produtoServico;
+
+	@Autowired
+	private ProdutoPedidoServico produtoPedidoServico;
 
 	/**
 	 * O metodo obtem um {@link Pedido} cadastrato no banco de dados convertido para
@@ -105,6 +109,40 @@ public class PedidoServico {
 		pedidoSalvo.setProdutoPedidos(coletarListaProdutoPedido(pedidoSalvo, novoPedidoDto));
 
 		return converterParaPedidosComProdutoDto(salvarPedido(pedidoSalvo));
+	}
+
+	/**
+	 * Metodo usado para atualizar um {@link Pedido}, atualizando tambem os
+	 * {@link ProdutoPedido} e retornar um {@link PedidoComProdutoDto}
+	 *
+	 * @autor Carlos Pereira
+	 *
+	 * @param idPedido
+	 * @param pedidoDto
+	 * @return {@link PedidoComProdutoDto}
+	 */
+	public PedidoComProdutoDto atualizarPedido(Integer idPedido, PedidoDto pedidoDto) {
+		List<ProdutoPedido> listaExclusaoProdutoPedido = new ArrayList<ProdutoPedido>();
+		Pedido pedidosalvo = new Pedido();
+		Pedido pedido = consultarPorId(idPedido);
+		if (pedido != null) {
+			pedido.setData(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
+
+			List<ProdutoPedido> novaListaProdutoPedido = coletarListaProdutoPedido(pedido, pedidoDto);
+
+			listaExclusaoProdutoPedido = pedido.getProdutosPedido().stream()
+					.filter(produtoPedido -> !novaListaProdutoPedido.contains(produtoPedido))
+					.collect(Collectors.toList());
+
+			pedido.setProdutoPedidos(novaListaProdutoPedido);
+			pedidosalvo = salvarPedido(pedido);
+		}
+
+		for (ProdutoPedido produtoPedido : listaExclusaoProdutoPedido) {
+			produtoPedidoServico.excluirProdutoPedido(produtoPedido.getId());
+		}
+
+		return converterParaPedidosComProdutoDto(pedidosalvo);
 	}
 
 	/**
