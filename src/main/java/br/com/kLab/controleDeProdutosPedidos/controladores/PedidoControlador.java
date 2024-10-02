@@ -125,10 +125,10 @@ public class PedidoControlador {
 	 * @autor Carlos Pereira
 	 *
 	 * @param idPedido
-	 * @return ResponseEntity< {@link Pedido} >
+	 * @return ResponseEntity< {@link Void} >
 	 */
 	@DeleteMapping(path = "/{idPedido}")
-	public ResponseEntity<Pedido> excluir(@PathVariable Integer idPedido) {
+	public ResponseEntity<Void> excluir(@PathVariable Integer idPedido) {
 		servicoPedido.excluirPedido(idPedido);
 
 		return ResponseEntity.noContent().build();
