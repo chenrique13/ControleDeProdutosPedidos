@@ -1,4 +1,4 @@
-package br.com.kLab.controleDeProdutosPedidos.configuracao;
+package br.com.kLab.controleDeProdutosPedidos.configuracoes;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
