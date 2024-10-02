@@ -20,7 +20,7 @@ import jakarta.persistence.OneToMany;
  */
 
 @Entity
-public class Departamento implements Serializable{
+public class Departamento implements Serializable {
 
 	private static final long serialVersionUID = 102198882488252219L;
 
@@ -31,13 +31,13 @@ public class Departamento implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
 	private Integer codigo;
-	
+
 	/**
 	 * Descricao do Departamento.
 	 */
 	@Column
 	private String descricao;
-	
+
 	/**
 	 * Associacao do Departamento com o {@link Produto}.
 	 */
@@ -48,18 +48,21 @@ public class Departamento implements Serializable{
 	 * Construtor padrão sem argumentos.
 	 */
 	public Departamento() {
-		
+
 	}
-	
+
 	/**
 	 * Construtor com todos os argumêntos.
 	 *
 	 * @param codigo
 	 * @param descricao
+	 * @param produtos
 	 */
-	public Departamento(Integer codigo, String descricao) {
+	public Departamento(Integer codigo, String descricao, List<Produto> produtos) {
+		super();
 		this.codigo = codigo;
 		this.descricao = descricao;
+		this.produtos = produtos;
 	}
 
 	/**
@@ -97,7 +100,7 @@ public class Departamento implements Serializable{
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	
+
 	/**
 	 * Obtem a lista de {@link Produto}.
 	 *
@@ -161,5 +164,5 @@ public class Departamento implements Serializable{
 		builder.append("]");
 		return builder.toString();
 	}
-	
+
 }

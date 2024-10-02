@@ -71,11 +71,17 @@ public class Produto implements Serializable {
 	 * @param codigo
 	 * @param descricao
 	 * @param preco
+	 * @param departamento
+	 * @param produtoPedidos
 	 */
-	public Produto(Integer codigo, String descricao, Double preco) {
+	public Produto(Integer codigo, String descricao, Double preco, Departamento departamento,
+			List<ProdutoPedido> produtoPedidos) {
+		super();
 		this.codigo = codigo;
 		this.descricao = descricao;
 		this.preco = preco;
+		this.departamento = departamento;
+		this.produtoPedidos = produtoPedidos;
 	}
 
 	/**
@@ -150,7 +156,6 @@ public class Produto implements Serializable {
 		this.departamento = departamento;
 	}
 
-	
 	/**
 	 * Obtem a lista de {@link ProdutoPedido}.
 	 *
@@ -196,7 +201,7 @@ public class Produto implements Serializable {
 		Produto other = (Produto) obj;
 		return Objects.equals(codigo, other.codigo);
 	}
-	
+
 	/**
 	 * Retorna uma representação em texto do Produto.
 	 * 

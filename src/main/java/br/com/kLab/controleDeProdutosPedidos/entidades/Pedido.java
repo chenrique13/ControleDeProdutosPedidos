@@ -43,10 +43,10 @@ public class Pedido implements Serializable {
 	 */
 	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
 	private List<ProdutoPedido> produtosPedido;
-	
+
 	/**
 	 * Construtor padrão sem argumentos.
-	 */	
+	 */
 	public Pedido() {
 
 	}
@@ -56,10 +56,13 @@ public class Pedido implements Serializable {
 	 *
 	 * @param numero
 	 * @param data
+	 * @param produtosPedido
 	 */
-	public Pedido(Integer numero, Date data) {
+	public Pedido(Integer numero, Date data, List<ProdutoPedido> produtosPedido) {
+		super();
 		this.numero = numero;
 		this.data = data;
+		this.produtosPedido = produtosPedido;
 	}
 
 	/**
@@ -118,8 +121,8 @@ public class Pedido implements Serializable {
 
 	/**
 	 * Metodo usado para obter o valor total do Pedido, ou seja, retorna o somatorio
-	 * do valor total de cada produto que equivale ao resultado da quantidade do produto
-	 * multiplicado pelo valor da venda.
+	 * do valor total de cada produto que equivale ao resultado da quantidade do
+	 * produto multiplicado pelo valor da venda.
 	 *
 	 * @autor Carlos Pereira
 	 *
@@ -134,7 +137,7 @@ public class Pedido implements Serializable {
 
 		return valorTotal;
 	}
-	
+
 	/**
 	 * Gera um hash de um Pedido a partir do seu numero.
 	 * 
