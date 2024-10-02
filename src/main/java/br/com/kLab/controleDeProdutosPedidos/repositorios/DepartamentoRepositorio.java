@@ -8,10 +8,24 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import br.com.kLab.controleDeProdutosPedidos.entidades.Departamento;
+import br.com.kLab.controleDeProdutosPedidos.entidades.Produto;
 
 @Repository
 public interface DepartamentoRepositorio extends JpaRepository<Departamento, Integer> {
 
+	/**
+	 * Sql nativa usada para retornar uma lista de objetos com os atributos
+	 * codigoDepartamento, descricaoDepartamento, codigoProduto, descicaoProduto
+	 * e precoProduto, com a obrigatoriedade de {@link Departamento} com {@link Produto},
+	 * filtrados pelo codigo inicial e final do {@link Departamento}
+	 * e ordenados pelo codigo do {@link Departamento} e descricao do {@link Produto}.
+	 *
+	 * @autor Carlos Pereira
+	 *
+	 * @param codigoInicial
+	 * @param codigoFinal
+	 * @return List<Object[]>
+	 */
 	@Query(value= "SELECT dp.codigo as codigoDepartamento, dp.descricao as descricaoDepartamento, "
 			+ "p.codigo as codigoProduto, p.descricao as descicaoProduto, p.preco as precoProduto "
 			+ "FROM departamento dp "
@@ -22,6 +36,19 @@ public interface DepartamentoRepositorio extends JpaRepository<Departamento, Int
 	List<Object[]> consultarDepartamentoComProdutoPorCodigo(@Param("codigoInicial") Integer codigoInicial,
 			@Param("codigoFinal") Integer codigoFinal);
 	
+	/**
+	 * Query method usada para retornar uma lista de objetos com os atributos
+	 * codigoDepartamento, descricaoDepartamento, codigoProduto, descicaoProduto
+	 * e precoProduto, com a obrigatoriedade de {@link Departamento} com {@link Produto},
+	 * filtrados pelo codigo inicial e final do {@link Departamento}
+	 e ordenados pelo codigo do {@link Departamento} e descricao do {@link Produto}.
+	 *
+	 * @autor Carlos Pereira
+	 *
+	 * @param codigoInicial
+	 * @param codigoFinal
+	 * @return List<{@link Departamento}>
+	 */
 	List<Departamento> findByProdutosIsNotEmptyAndCodigoBetweenOrderByCodigoAscProdutosDescricaoAsc(Integer codigoInicial, Integer codigoFinal);
 	
 }
