@@ -1,5 +1,7 @@
 package br.com.kLab.controleDeProdutosPedidos.servicos;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -11,10 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.kLab.controleDeProdutosPedidos.dtos.pedido.PedidoComProdutoDto;
+import br.com.kLab.controleDeProdutosPedidos.dtos.pedido.PedidoDto;
+import br.com.kLab.controleDeProdutosPedidos.dtos.produto.ProdutoPedidoDto;
 import br.com.kLab.controleDeProdutosPedidos.dtos.produto.ProdutoPedidoTotalDto;
 import br.com.kLab.controleDeProdutosPedidos.entidades.Pedido;
 import br.com.kLab.controleDeProdutosPedidos.entidades.Produto;
 import br.com.kLab.controleDeProdutosPedidos.entidades.ProdutoPedido;
+import br.com.kLab.controleDeProdutosPedidos.entidades.ProdutoPedidoId;
 import br.com.kLab.controleDeProdutosPedidos.repositorios.PedidoRepositorio;
 
 /**
@@ -26,6 +31,9 @@ public class PedidoServico {
 
 	@Autowired
 	private PedidoRepositorio repositorioPedido;
+
+	@Autowired
+	private ProdutoServico produtoServico;
 
 	/**
 	 * O metodo obtem um {@link Pedido} cadastrato no banco de dados convertido para
@@ -79,7 +87,38 @@ public class PedidoServico {
 
 		return listaPedidosComProdutoDto;
 	}
-	
+
+	/**
+	 * Metodo usado para inserir um {@link Pedido} no banco de dados e retornar um
+	 * {@link PedidoComProdutoDto}.
+	 *
+	 * @autor Carlos Pereira
+	 *
+	 * @param novoPedidoDto
+	 * @return {@link PedidoComProdutoDto}
+	 */
+	public PedidoComProdutoDto inserirPedido(PedidoDto novoPedidoDto) {
+		Pedido pedido = new Pedido();
+		pedido.setData(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
+
+		Pedido pedidoSalvo = salvarPedido(pedido);
+		pedidoSalvo.setProdutoPedidos(coletarListaProdutoPedido(pedidoSalvo, novoPedidoDto));
+
+		return converterParaPedidosComProdutoDto(salvarPedido(pedidoSalvo));
+	}
+
+	/**
+	 * Metodo usado para salvar um {@link Pedido} no banco de dados.
+	 *
+	 * @autor Carlos Pereira
+	 *
+	 * @param pedido
+	 * @return {@link Pedido}
+	 */
+	public Pedido salvarPedido(Pedido pedido) {
+		return repositorioPedido.save(pedido);
+	}
+
 	/**
 	 * Metodo usado para excluir por id um {@link Pedido} no banco de dados.
 	 *
@@ -139,6 +178,41 @@ public class PedidoServico {
 			return pedidosComProdutoDto;
 		}
 		return null;
+	}
+
+	/**
+	 * Metodo usado para coletar uma lista de {@link ProdutoPedido} recebendo um
+	 * {@link Pedido} e um {@link PedidoDto}, usado na criacao e alteracao de um
+	 * pedido.
+	 *
+	 * @autor Carlos Pereira
+	 *
+	 * @param pedido
+	 * @param pedidoDto
+	 * @return List<{@link ProdutoPedido}>
+	 */
+	private List<ProdutoPedido> coletarListaProdutoPedido(Pedido pedido, PedidoDto pedidoDto) {
+		List<ProdutoPedido> listaProdutosPedido = new ArrayList<>();
+		if (pedidoDto != null) {
+			for (ProdutoPedidoDto produtoDto : pedidoDto.getProdutos()) {
+				Produto produto = produtoServico.consultarPorId(produtoDto.getCodigoProduto());
+				if (produto != null) {
+					ProdutoPedido produtoPedido = new ProdutoPedido();
+					ProdutoPedidoId id = new ProdutoPedidoId(produto.getCodigo(), pedido.getNumero());
+
+					produto.setDescricao(produtoDto.getDescricaoProduto());
+
+					produtoPedido.setId(id);
+					produtoPedido.setQuantidade(produtoDto.getQuantidade());
+					produtoPedido.setValorVenda(produtoDto.getValorVenda());
+					produtoPedido.setProduto(produto);
+					produtoPedido.setPedido(pedido);
+
+					listaProdutosPedido.add(produtoPedido);
+				}
+			}
+		}
+		return listaProdutosPedido;
 	}
 
 }
