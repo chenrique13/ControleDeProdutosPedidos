@@ -171,6 +171,18 @@ public class ProdutoPedido implements Serializable {
 	public void setPedido(Pedido pedido) {
 		this.pedido = pedido;
 	}
+	
+	/**
+	 * Metodo usado para obter o valor total do Produto, ou seja, 
+	 * quantidade multiplicado pelo valor da venda.
+	 *
+	 * @autor Carlos Pereira
+	 *
+	 * @return Double
+	 */
+	public Double valorTotalProduto() {
+		return  getQuantidade() * getValorVenda();
+	}
 
 	/**
 	 * Gera um hash de um ProdutoPedido a partir do seu id.

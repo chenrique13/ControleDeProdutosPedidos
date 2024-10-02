@@ -42,7 +42,7 @@ public class Pedido implements Serializable {
 	 * Associacao do Pedido com a tabela intermediaria {@link ProdutoPedido}.
 	 */
 	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
-	private List<ProdutoPedido> produtoPedidos;
+	private List<ProdutoPedido> produtosPedido;
 	
 	/**
 	 * Construtor padrão sem argumentos.
@@ -103,8 +103,8 @@ public class Pedido implements Serializable {
 	 *
 	 * @return List <{@link ProdutoPedido}>
 	 */
-	public List<ProdutoPedido> getProdutoPedidos() {
-		return produtoPedidos;
+	public List<ProdutoPedido> getProdutosPedido() {
+		return produtosPedido;
 	}
 
 	/**
@@ -112,10 +112,29 @@ public class Pedido implements Serializable {
 	 *
 	 * @param produtoPedidos
 	 */
-	public void setProdutoPedidos(List<ProdutoPedido> produtoPedidos) {
-		this.produtoPedidos = produtoPedidos;
+	public void setProdutoPedidos(List<ProdutoPedido> produtosPedido) {
+		this.produtosPedido = produtosPedido;
 	}
 
+	/**
+	 * Metodo usado para obter o valor total do Pedido, ou seja, retorna o somatorio
+	 * do valor total de cada produto que equivale ao resultado da quantidade do produto
+	 * multiplicado pelo valor da venda.
+	 *
+	 * @autor Carlos Pereira
+	 *
+	 * @return Double
+	 */
+	public Double calcularValorTotalPedido() {
+		Double valorTotal = 0.0;
+
+		for (ProdutoPedido produtoPedido : this.produtosPedido) {
+			valorTotal += produtoPedido.valorTotalProduto();
+		}
+
+		return valorTotal;
+	}
+	
 	/**
 	 * Gera um hash de um Pedido a partir do seu numero.
 	 * 
@@ -156,8 +175,8 @@ public class Pedido implements Serializable {
 		builder.append(numero);
 		builder.append(", data=");
 		builder.append(data);
-		builder.append(", produtoPedidos=");
-		builder.append(produtoPedidos);
+		builder.append(", produtosPedido=");
+		builder.append(produtosPedido);
 		builder.append("]");
 		return builder.toString();
 	}
