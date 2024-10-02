@@ -79,6 +79,21 @@ public class PedidoServico {
 
 		return listaPedidosComProdutoDto;
 	}
+	
+	/**
+	 * Metodo usado para excluir por id um {@link Pedido} no banco de dados.
+	 *
+	 * @autor Carlos Pereira
+	 *
+	 * @param idPedido
+	 */
+	public void excluirPedido(Integer idPedido) {
+		Pedido pedido = consultarPorId(idPedido);
+
+		if (pedido != null) {
+			repositorioPedido.deleteById(pedido.getNumero());
+		}
+	}
 
 	/**
 	 * O metodo obtem um {@link Pedido} cadastrato no banco de dados, se existir.
