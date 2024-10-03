@@ -18,7 +18,7 @@ O projeto inclui testes unitários para garantir a qualidade do código e utiliz
 Antes de começar, verifique se você tem as seguintes ferramentas instaladas em sua máquina:
 
 - [Java JDK 21](https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html)
-- [Maven](https://www.maven.apache.org/download.cgi)
+- [Maven](https://maven.apache.org/download.cgi)
 - [PostgreSQL](https://www.postgresql.org/download/)
 
 ## Configuração Para Execução
