@@ -56,7 +56,7 @@ public class Produto implements Serializable {
 	 * Associacao do Produto com a tabela intermediaria {@link ProdutoPedido}.
 	 */
 	@OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
-	private List<ProdutoPedido> produtoPedidos;
+	private List<ProdutoPedido> produtosPedido;
 
 	/**
 	 * Construtor padrão sem argumentos.
@@ -75,13 +75,13 @@ public class Produto implements Serializable {
 	 * @param produtoPedidos
 	 */
 	public Produto(Integer codigo, String descricao, Double preco, Departamento departamento,
-			List<ProdutoPedido> produtoPedidos) {
+			List<ProdutoPedido> produtosPedido) {
 		super();
 		this.codigo = codigo;
 		this.descricao = descricao;
 		this.preco = preco;
 		this.departamento = departamento;
-		this.produtoPedidos = produtoPedidos;
+		this.produtosPedido = produtosPedido;
 	}
 
 	/**
@@ -161,8 +161,8 @@ public class Produto implements Serializable {
 	 *
 	 * @return List <{@link ProdutoPedido}>
 	 */
-	public List<ProdutoPedido> getProdutoPedidos() {
-		return produtoPedidos;
+	public List<ProdutoPedido> getProdutosPedido() {
+		return produtosPedido;
 	}
 
 	/**
@@ -170,8 +170,8 @@ public class Produto implements Serializable {
 	 *
 	 * @param produtoPedidos
 	 */
-	public void setProdutoPedidos(List<ProdutoPedido> produtoPedidos) {
-		this.produtoPedidos = produtoPedidos;
+	public void setProdutosPedido(List<ProdutoPedido> produtosPedido) {
+		this.produtosPedido = produtosPedido;
 	}
 
 	/**
@@ -218,8 +218,8 @@ public class Produto implements Serializable {
 		builder.append(preco);
 		builder.append(", departamento=");
 		builder.append(departamento);
-		builder.append(", produtoPedidos=");
-		builder.append(produtoPedidos);
+		builder.append(", produtosPedido=");
+		builder.append(produtosPedido);
 		builder.append("]");
 		return builder.toString();
 	}
