@@ -173,7 +173,7 @@ class ProdutoPedidoTest {
 	public void testToString() {
 		String representacaoTextual = "ProdutoPedido [id=ProdutoPedidoId [codigoProduto=2, numeroPedido=1],"
 				+ " quantidade=10, valorVenda=5.0, produto=Produto [codigo=2, descricao=Uva, preco=5.0,"
-				+ " departamento=Departamento [codigo=1, descricao=Mercado, produtos=[]], produtoPedidos=[]],"
+				+ " departamento=Departamento [codigo=1, descricao=Mercado, produtos=[]], produtosPedido=[]],"
 				+ " pedido=Pedido [numero=1, data=Wed Oct 02 00:00:00 BRT 2024, produtosPedido=[]]]";
 		assertEquals(representacaoTextual, produtoPedido.toString());
 	}
