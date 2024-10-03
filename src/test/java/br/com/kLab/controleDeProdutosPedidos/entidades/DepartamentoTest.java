@@ -84,15 +84,14 @@ public class DepartamentoTest {
     @SuppressWarnings("unlikely-arg-type")
 	@Test
     public void testEquals() {
-        Departamento departamento1 = new Departamento(1, "Construção", produtos);
         Departamento departamento2 = new Departamento(1, "Construção", produtos);
         Departamento departamento3 = new Departamento(2, "Roupas", produtos);
 
-        assertTrue(departamento1.equals(departamento1));
-        assertFalse(departamento1.equals(null));
-        assertFalse(departamento1.equals("OutraClasse"));
-        assertTrue(departamento1.equals(departamento2));
-        assertFalse(departamento1.equals(departamento3));
+        assertTrue(departamento.equals(departamento));
+        assertFalse(departamento.equals(null));
+        assertFalse(departamento.equals("OutraClasse"));
+        assertTrue(departamento.equals(departamento2));
+        assertFalse(departamento.equals(departamento3));
     }
 
     /**
@@ -101,15 +100,14 @@ public class DepartamentoTest {
      */
     @Test
     public void testHashCode() {
-        Departamento departamento1 = new Departamento(1, "Construção", produtos);
         Departamento departamento2 = new Departamento(1, "Construção", produtos);
 
-        assertEquals(departamento1.hashCode(), departamento2.hashCode());
+        assertEquals(departamento.hashCode(), departamento2.hashCode());
     }
 
     /**
      * Testa o metodo toString.
-     * Verifica se a representação textual do Departamento é gerada corretamente.
+     * Verifica se a representacao textual do Departamento é gerada corretamente.
      */
     @Test
     public void testToString() {

@@ -98,13 +98,13 @@ class PedidoTest {
 		Produto pera = new Produto(1, "Pera", 2.00, departamento, produtosPedido);
 		Produto uva = new Produto(2, "Uva", 5.00, departamento, produtosPedido);
 
-		ProdutoPedido produto1 = new ProdutoPedido(new ProdutoPedidoId(pedido.getNumero(), pera.getCodigo()), 5,
+		ProdutoPedido produtoPedido1 = new ProdutoPedido(new ProdutoPedidoId(pedido.getNumero(), pera.getCodigo()), 5,
 				pera.getPreco(), pera, pedido);
-		ProdutoPedido produto2 = new ProdutoPedido(new ProdutoPedidoId(pedido.getNumero(), uva.getCodigo()), 10,
+		ProdutoPedido produtoPedido2 = new ProdutoPedido(new ProdutoPedidoId(pedido.getNumero(), uva.getCodigo()), 10,
 				uva.getPreco(), uva, pedido);
 
-		produtosPedido.add(produto1);
-		produtosPedido.add(produto2);
+		produtosPedido.add(produtoPedido1);
+		produtosPedido.add(produtoPedido2);
 		pedido.setProdutoPedidos(produtosPedido);
 
 		Double valorEsperado = 60.0;
@@ -121,16 +121,15 @@ class PedidoTest {
 	@SuppressWarnings("unlikely-arg-type")
 	@Test
 	public void testEquals() {
-		Pedido pedido1 = new Pedido(1, data, produtosPedido);
 		Pedido pedido2 = new Pedido(1, data, produtosPedido);
 		Pedido pedido3 = new Pedido(2,Date.from(LocalDate.of(2024, 10, 3).
 				atStartOfDay(ZoneId.systemDefault()).toInstant()), produtosPedido);
 
-		assertTrue(pedido1.equals(pedido1));
-		assertFalse(pedido1.equals(null));
-		assertFalse(pedido1.equals("OutraClasse"));
-		assertTrue(pedido1.equals(pedido2));
-		assertFalse(pedido1.equals(pedido3));
+		assertTrue(pedido.equals(pedido));
+		assertFalse(pedido.equals(null));
+		assertFalse(pedido.equals("OutraClasse"));
+		assertTrue(pedido.equals(pedido2));
+		assertFalse(pedido.equals(pedido3));
 	}
 
     /**
@@ -139,15 +138,14 @@ class PedidoTest {
      */
     @Test
     public void testHashCode() {
-        Pedido pedido1 = new Pedido(1, data, produtosPedido);
         Pedido pedido2 = new Pedido(1, data, produtosPedido);
 
-        assertEquals(pedido1.hashCode(), pedido2.hashCode());
+        assertEquals(pedido.hashCode(), pedido2.hashCode());
     }
 
     /**
      * Testa o metodo toString.
-     * Verifica se a representação textual do Pedido é gerada corretamente.
+     * Verifica se a representacao textual do Pedido é gerada corretamente.
      */
     @Test
     public void testToString() {
