@@ -131,8 +131,10 @@ public class Pedido implements Serializable {
 	public Double calcularValorTotalPedido() {
 		Double valorTotal = 0.0;
 
-		for (ProdutoPedido produtoPedido : this.produtosPedido) {
-			valorTotal += produtoPedido.valorTotalProduto();
+		if (this.produtosPedido != null) {
+			for (ProdutoPedido produtoPedido : this.produtosPedido) {
+				valorTotal += produtoPedido.valorTotalProduto();
+			}
 		}
 
 		return valorTotal;
