@@ -53,7 +53,7 @@ public class PedidoControlador {
 		if (pedidoDto != null) {
 			return ResponseEntity.ok(pedidoDto);
 		}
-		return ResponseEntity.internalServerError().build();
+		return ResponseEntity.notFound().build();
 	}
 
 	/**
@@ -84,7 +84,7 @@ public class PedidoControlador {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		return ResponseEntity.internalServerError().build();
+		return ResponseEntity.notFound().build();
 	}
 
 	/**

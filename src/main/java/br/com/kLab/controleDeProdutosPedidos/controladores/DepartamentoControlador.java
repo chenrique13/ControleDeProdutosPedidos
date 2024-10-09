@@ -45,7 +45,10 @@ public class DepartamentoControlador {
 		List<DepartamentoComProdutoDto> listaDepartamentoDto = servicoDepartamento
 				.consultarDepartamentoComProdutoPorCodigo(codigoInicial, codigoFinal);
 
-		return ResponseEntity.ok(listaDepartamentoDto);
+		if (listaDepartamentoDto != null) {
+			return ResponseEntity.ok(listaDepartamentoDto);
+		}
+		return ResponseEntity.notFound().build();
 	}
 
 }
