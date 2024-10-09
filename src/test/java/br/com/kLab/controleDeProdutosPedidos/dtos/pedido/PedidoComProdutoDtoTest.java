@@ -29,7 +29,7 @@ public class PedidoComProdutoDtoTest {
 		produtos = new ArrayList<>();
 		produtos.add(new ProdutoPedidoTotalDto(1, "Chave de fenda", 2, 50.0, 100.0));
 		produtos.add(new ProdutoPedidoTotalDto(2, "Alicate", 1, 75.0, 75.0));
-		pedidoComProdutoDto = new PedidoComProdutoDto(12345, new Date(), 175.0, produtos);
+		pedidoComProdutoDto = new PedidoComProdutoDto(12345, new Date(), produtos);
 	}
 
 	/**
@@ -41,8 +41,8 @@ public class PedidoComProdutoDtoTest {
 		PedidoComProdutoDto dto = new PedidoComProdutoDto();
 		assertNull(dto.getNumeroPedido());
 		assertNull(dto.getDataPedido());
-		assertNull(dto.getTotalPedido());
 		assertNull(dto.getProdutos());
+		assertEquals(dto.getTotalPedido(), 0.0);
 	}
 
 	/**

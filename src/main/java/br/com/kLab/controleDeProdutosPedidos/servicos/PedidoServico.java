@@ -75,7 +75,6 @@ public class PedidoServico {
 			if (!mapaPedidosComProdutoDto.containsKey(numeroPedido)) {
 
 				PedidoComProdutoDto pedidoDto = new PedidoComProdutoDto((Integer) objeto[0], (Date) objeto[1],
-						consultarPorId((Integer) objeto[0]).calcularValorTotalPedido(),
 						new ArrayList<ProdutoPedidoTotalDto>());
 
 				mapaPedidosComProdutoDto.put(numeroPedido, pedidoDto);
@@ -211,7 +210,7 @@ public class PedidoServico {
 			}
 
 			PedidoComProdutoDto pedidosComProdutoDto = new PedidoComProdutoDto(pedido.getNumero(), pedido.getData(),
-					pedido.calcularValorTotalPedido(), listaProdutoPedidoTotalDto);
+					listaProdutoPedidoTotalDto);
 
 			return pedidosComProdutoDto;
 		}

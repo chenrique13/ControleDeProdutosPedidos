@@ -31,12 +31,11 @@ public class PedidoComProdutoDto implements Serializable {
 
 	}
 
-	public PedidoComProdutoDto(Integer numeroPedido, Date dataPedido, Double totalPedido,
-			List<ProdutoPedidoTotalDto> produtos) {
+	public PedidoComProdutoDto(Integer numeroPedido, Date dataPedido, List<ProdutoPedidoTotalDto> produtos) {
 		this.numeroPedido = numeroPedido;
 		this.dataPedido = dataPedido;
-		this.totalPedido = totalPedido;
 		this.produtos = produtos;
+		this.totalPedido = getTotalPedido();
 	}
 
 	public Integer getNumeroPedido() {
@@ -48,7 +47,14 @@ public class PedidoComProdutoDto implements Serializable {
 	}
 
 	public Double getTotalPedido() {
-		return totalPedido;
+		Double valorTotal = 0.0;
+
+		if (this.produtos != null) {
+			for (ProdutoPedidoTotalDto produtoPedido : this.produtos) {
+				valorTotal += produtoPedido.getValorTotalProduto();
+			}
+		}
+		return valorTotal;
 	}
 
 	public List<ProdutoPedidoTotalDto> getProdutos() {
