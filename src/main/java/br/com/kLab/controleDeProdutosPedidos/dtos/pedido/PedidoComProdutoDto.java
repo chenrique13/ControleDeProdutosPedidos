@@ -16,6 +16,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
  * @autor Carlos Pereira
  *
  */
+@Schema(description = "DTO que representa o modelo de dados do pedido com os produtos e o valor total deles.")
 public class PedidoComProdutoDto implements Serializable {
 
 	private static final long serialVersionUID = 6046418795414112757L;

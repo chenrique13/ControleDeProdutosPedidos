@@ -15,6 +15,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
  * @autor Carlos Pereira
  *
  */
+@Schema(description = "DTO que representa o modelo de dados do departamento com produtos.")
 public class DepartamentoComProdutoDto implements Serializable {
 
 	private static final long serialVersionUID = 8935947566609314372L;

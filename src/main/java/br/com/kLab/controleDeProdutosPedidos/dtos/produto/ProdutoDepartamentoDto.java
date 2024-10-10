@@ -13,6 +13,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
  * @autor Carlos Pereira
  *
  */
+@Schema(description = "DTO que representa o modelo de dados dos produtos do departamento com o preço atual deles.")
 public class ProdutoDepartamentoDto implements Serializable {
 
 	private static final long serialVersionUID = -5087991678434232022L;
