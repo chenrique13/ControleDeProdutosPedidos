@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.kLab.controleDeProdutosPedidos.dtos.pedido.PedidoComProdutoDto;
 import br.com.kLab.controleDeProdutosPedidos.dtos.pedido.PedidoDto;
@@ -100,6 +101,7 @@ public class PedidoServico {
 	 * @param novoPedidoDto
 	 * @return {@link PedidoComProdutoDto}
 	 */
+	@Transactional
 	public PedidoComProdutoDto inserirPedido(PedidoDto novoPedidoDto) {
 		Pedido pedido = new Pedido();
 		pedido.setData(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()));
@@ -120,6 +122,7 @@ public class PedidoServico {
 	 * @param pedidoDto
 	 * @return {@link PedidoComProdutoDto}
 	 */
+	@Transactional
 	public PedidoComProdutoDto atualizarPedido(Integer idPedido, PedidoDto pedidoDto) {
 		List<ProdutoPedido> listaExclusaoProdutoPedido = new ArrayList<ProdutoPedido>();
 		Pedido pedidosalvo = new Pedido();
