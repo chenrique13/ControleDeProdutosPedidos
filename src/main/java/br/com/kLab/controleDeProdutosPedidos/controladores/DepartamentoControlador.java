@@ -14,6 +14,7 @@ import br.com.kLab.controleDeProdutosPedidos.entidades.Departamento;
 import br.com.kLab.controleDeProdutosPedidos.entidades.Produto;
 import br.com.kLab.controleDeProdutosPedidos.servicos.DepartamentoServico;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 
 /**
  * Classe responsável por ser o endpoint para operações relacionadas ao
@@ -41,7 +42,10 @@ public class DepartamentoControlador {
 			+ "filtrados pelo codigo inicial e final, ordenados pelo codigo do departamento e descricao do produto.")
 	@GetMapping
 	public ResponseEntity<List<DepartamentoComProdutoDto>> consultarDepartamentoComProdutoPorCodigo(
-			@RequestParam Integer codigoInicial, @RequestParam Integer codigoFinal) {
+			@Parameter(description = "Código inicial do departamento", required = true, example = "1")
+			@RequestParam Integer codigoInicial, 
+			@Parameter(description = "Código final do departamento", required = true, example = "100")
+			@RequestParam Integer codigoFinal) {
 		List<DepartamentoComProdutoDto> listaDepartamentoDto = servicoDepartamento
 				.consultarDepartamentoComProdutoPorCodigo(codigoInicial, codigoFinal);
 

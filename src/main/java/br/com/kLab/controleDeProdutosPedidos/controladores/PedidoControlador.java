@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +24,8 @@ import br.com.kLab.controleDeProdutosPedidos.entidades.Pedido;
 import br.com.kLab.controleDeProdutosPedidos.entidades.Produto;
 import br.com.kLab.controleDeProdutosPedidos.servicos.PedidoServico;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 /**
  * Classe responsável por ser o endpoint para operações relacionadas ao
@@ -47,7 +48,9 @@ public class PedidoControlador {
 	 */
 	@Operation(summary = "Busca Pedido por Id", description = "Buscar pedidos com produtos por id.")
 	@GetMapping(path = "/{idPedido}")
-	public ResponseEntity<PedidoComProdutoDto> consultarPorId(@PathVariable Integer idPedido) {
+	public ResponseEntity<PedidoComProdutoDto> consultarPorId(
+			@Parameter(description = "Id do pedido a ser consultado", required = true, example = "1") 
+			@PathVariable Integer idPedido) {
 		PedidoComProdutoDto pedidoDto = servicoPedido.consultarPedidoPorIdDto(idPedido);
 
 		if (pedidoDto != null) {
@@ -70,7 +73,10 @@ public class PedidoControlador {
 	@Operation(summary = "Busca Pedido por Data", description = "Buscar pedidos com produtos, "
 			+ "filtrados pelas datas inicial e final, ordenados pelo numero do pedido e codigo do produto.")
 	@GetMapping
-	public ResponseEntity<List<PedidoComProdutoDto>> consultarPedidosPorData(@RequestParam String dataInicial,
+	public ResponseEntity<List<PedidoComProdutoDto>> consultarPedidosPorData(
+			@Parameter(description = "Data inicial do pedido", required = true, example = "2024-01-01")
+			@RequestParam String dataInicial,
+			@Parameter(description = "Data final do pedido", required = true, example = "2024-12-31")
 			@RequestParam String dataFinal) {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		Date dataConvertidaInicial, dataConvertidaFinal;
@@ -97,7 +103,8 @@ public class PedidoControlador {
 	 */
 	@Operation(summary = "Inserir Pedido", description = "Cria um novo pedido no sistema.")
 	@PostMapping
-	public ResponseEntity<PedidoComProdutoDto> inserir(@RequestBody PedidoDto novoPedidoDto) {
+	public ResponseEntity<PedidoComProdutoDto> inserir(
+			@RequestBody(description = "Detalhes do pedido a ser criado", required = true) PedidoDto novoPedidoDto) {
 		PedidoComProdutoDto novoPedido = servicoPedido.inserirPedido(novoPedidoDto);
 
 		URI uri = UriComponentsBuilder.fromPath("pedido/").buildAndExpand(novoPedido.getNumeroPedido()).toUri();
@@ -115,8 +122,10 @@ public class PedidoControlador {
 	 */
 	@Operation(summary = "Atualizar Pedido", description = "Atualiza um pedido e seus produtos no sistema.")
 	@PutMapping("/{idPedido}")
-	public ResponseEntity<PedidoComProdutoDto> atualizarPedido(@PathVariable Integer idPedido,
-			@RequestBody PedidoDto pedidoDto) {
+	public ResponseEntity<PedidoComProdutoDto> atualizarPedido(
+			@Parameter(description = "Id do pedido a ser atualizado", required = true, example = "1")
+			@PathVariable Integer idPedido,
+			@RequestBody(description = "Detalhes do pedido a ser atualizado", required = true) PedidoDto pedidoDto) {
 		PedidoComProdutoDto pedidoDtoAtualizado = servicoPedido.atualizarPedido(idPedido, pedidoDto);
 
 		if (pedidoDtoAtualizado != null) {
@@ -135,7 +144,9 @@ public class PedidoControlador {
 	 */
 	@Operation(summary = "Excluir Pedido", description = "Exclui um pedido no sistema")
 	@DeleteMapping(path = "/{idPedido}")
-	public ResponseEntity<Void> excluir(@PathVariable Integer idPedido) {
+	public ResponseEntity<Void> excluir(
+			@Parameter(description = "Id do pedido a ser excluído", required = true, example = "1")
+			@PathVariable Integer idPedido) {
 		servicoPedido.excluirPedido(idPedido);
 
 		return ResponseEntity.noContent().build();
