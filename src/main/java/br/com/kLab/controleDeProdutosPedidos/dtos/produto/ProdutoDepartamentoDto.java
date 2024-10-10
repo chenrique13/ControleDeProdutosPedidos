@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import br.com.kLab.controleDeProdutosPedidos.dtos.departamento.DepartamentoComProdutoDto;
 import br.com.kLab.controleDeProdutosPedidos.entidades.Produto;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * Classe responsável por ser o modelo de dados do {@link Produto} dentro do
@@ -16,19 +17,13 @@ public class ProdutoDepartamentoDto implements Serializable {
 
 	private static final long serialVersionUID = -5087991678434232022L;
 
-	/**
-	 * Codigo do Produto.
-	 */
+	@Schema(description = "Código único do produto", example = "1")
 	private Integer codigoProduto;
 
-	/**
-	 * Descricao do Produto.
-	 */
+	@Schema(description = "Descrição do produto", example = "Chave de fenda")
 	private String descricaoProduto;
 
-	/**
-	 * Preco do Produto.
-	 */
+	@Schema(description = "Preço do produto", example = "10.00")
 	private Double preco;
 
 	/**
@@ -72,7 +67,7 @@ public class ProdutoDepartamentoDto implements Serializable {
 	/**
 	 * Obtem o preco do Produto.
 	 *
-	 * @return String
+	 * @return Double
 	 */
 	public Double getPreco() {
 		return preco;
