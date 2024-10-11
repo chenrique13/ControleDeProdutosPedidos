@@ -7,6 +7,9 @@ import io.swagger.v3.oas.models.ExternalDocumentation;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 
+/**
+ * Classe de configuração da documentação da API Controle de Produtos/Pedidos
+ */
 @Configuration
 public class OpenApiConfiguracao {
 

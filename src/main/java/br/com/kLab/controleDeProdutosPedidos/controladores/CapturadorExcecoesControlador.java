@@ -9,9 +9,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import br.com.kLab.controleDeProdutosPedidos.excecoes.ObjetoNaoEncontradoExcecao;
 
 /**
- * Classe para manipulação comum de exceções do projeto Usuários.
+ * Classe para manipulação de exceções do projeto Controle de Produtos/Pedidos.
  * 
- * Esta classe define manipuladores de exceções do projeto Usuários.
  */
 @RestControllerAdvice
 public class CapturadorExcecoesControlador {
