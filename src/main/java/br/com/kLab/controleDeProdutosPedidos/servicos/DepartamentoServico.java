@@ -12,6 +12,7 @@ import br.com.kLab.controleDeProdutosPedidos.dtos.departamento.DepartamentoComPr
 import br.com.kLab.controleDeProdutosPedidos.dtos.produto.ProdutoDepartamentoDto;
 import br.com.kLab.controleDeProdutosPedidos.entidades.Departamento;
 import br.com.kLab.controleDeProdutosPedidos.entidades.Produto;
+import br.com.kLab.controleDeProdutosPedidos.excecoes.ObjetoNaoEncontradoExcecao;
 import br.com.kLab.controleDeProdutosPedidos.repositorios.DepartamentoRepositorio;
 
 /**
@@ -59,6 +60,12 @@ public class DepartamentoServico {
 
 		List<DepartamentoComProdutoDto> listaDepartamentoComProdutoDto = new ArrayList<>(
 				mapaDepartamentoComProdutoDto.values());
+
+		if (listaDepartamentoComProdutoDto.isEmpty()) {
+			throw new ObjetoNaoEncontradoExcecao(
+					"Nenhum departamento encontrado na base de dados do sistema no intervalo de códigos: Código inicial = "
+							+ codigoInicial.toString() + ", Código final = " + codigoFinal.toString());
+		}
 
 		return listaDepartamentoComProdutoDto;
 	}

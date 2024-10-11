@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.kLab.controleDeProdutosPedidos.entidades.Produto;
+import br.com.kLab.controleDeProdutosPedidos.excecoes.ObjetoNaoEncontradoExcecao;
 import br.com.kLab.controleDeProdutosPedidos.repositorios.ProdutoRepositorio;
 
 /**
@@ -32,7 +33,9 @@ public class ProdutoServico {
 		if (produto.isPresent()) {
 			return produto.get();
 		}
-		return null;
+
+		throw new ObjetoNaoEncontradoExcecao(
+				"Produto com o Id " + idProduto + " não foi encontrado na base de dados do sistema!");
 	}
 
 }

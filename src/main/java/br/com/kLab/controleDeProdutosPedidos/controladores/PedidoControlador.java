@@ -78,12 +78,12 @@ public class PedidoControlador {
 			@RequestParam String dataInicial,
 			@Parameter(description = "Data final do pedido", required = true, example = "2024-12-31")
 			@RequestParam String dataFinal) {
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 		Date dataConvertidaInicial, dataConvertidaFinal;
 
 		try {
-			dataConvertidaInicial = formatter.parse(dataInicial);
-			dataConvertidaFinal = formatter.parse(dataFinal);
+			dataConvertidaInicial = formato.parse(dataInicial);
+			dataConvertidaFinal = formato.parse(dataFinal);
 			List<PedidoComProdutoDto> listaPedidoDto = servicoPedido.consultarPedidosPorData(dataConvertidaInicial,
 					dataConvertidaFinal);
 			return ResponseEntity.ok(listaPedidoDto);

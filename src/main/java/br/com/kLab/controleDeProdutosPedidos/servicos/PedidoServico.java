@@ -1,5 +1,6 @@
 package br.com.kLab.controleDeProdutosPedidos.servicos;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ import br.com.kLab.controleDeProdutosPedidos.entidades.Pedido;
 import br.com.kLab.controleDeProdutosPedidos.entidades.Produto;
 import br.com.kLab.controleDeProdutosPedidos.entidades.ProdutoPedido;
 import br.com.kLab.controleDeProdutosPedidos.entidades.ProdutoPedidoId;
+import br.com.kLab.controleDeProdutosPedidos.excecoes.ObjetoNaoEncontradoExcecao;
 import br.com.kLab.controleDeProdutosPedidos.repositorios.PedidoRepositorio;
 
 /**
@@ -89,6 +91,13 @@ public class PedidoServico {
 
 		List<PedidoComProdutoDto> listaPedidosComProdutoDto = new ArrayList<>(mapaPedidosComProdutoDto.values());
 
+		if (listaPedidosComProdutoDto.isEmpty()) {
+			SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+			throw new ObjetoNaoEncontradoExcecao(
+					"Nenhum pedido encontrado na base de dados do sistema no intervalo de datas: Data inicial = "
+							+ formato.format(dataInicial) + ", Data final = " + formato.format(dataFinal));
+		}
+
 		return listaPedidosComProdutoDto;
 	}
 
@@ -135,7 +144,7 @@ public class PedidoServico {
 			listaExclusaoProdutoPedido = pedido.getProdutosPedido().stream()
 					.filter(produtoPedido -> !novaListaProdutoPedido.contains(produtoPedido))
 					.collect(Collectors.toList());
-
+			
 			pedido.setProdutoPedidos(novaListaProdutoPedido);
 			pedidosalvo = salvarPedido(pedido);
 		}
@@ -188,7 +197,8 @@ public class PedidoServico {
 		if (pedido.isPresent()) {
 			return pedido.get();
 		}
-		return null;
+		throw new ObjetoNaoEncontradoExcecao(
+				"Pedido com o Id " + idPedido + " não foi encontrado na base de dados do sistema!");
 	}
 
 	/**
@@ -236,20 +246,19 @@ public class PedidoServico {
 		if (pedidoDto != null) {
 			for (ProdutoPedidoDto produtoDto : pedidoDto.getProdutos()) {
 				Produto produto = produtoServico.consultarPorId(produtoDto.getCodigoProduto());
-				if (produto != null) {
-					ProdutoPedido produtoPedido = new ProdutoPedido();
-					ProdutoPedidoId id = new ProdutoPedidoId(produto.getCodigo(), pedido.getNumero());
 
-					produto.setDescricao(produtoDto.getDescricaoProduto());
+				ProdutoPedido produtoPedido = new ProdutoPedido();
+				ProdutoPedidoId id = new ProdutoPedidoId(produto.getCodigo(), pedido.getNumero());
 
-					produtoPedido.setId(id);
-					produtoPedido.setQuantidade(produtoDto.getQuantidade());
-					produtoPedido.setValorVenda(produtoDto.getValorVenda());
-					produtoPedido.setProduto(produto);
-					produtoPedido.setPedido(pedido);
+				produto.setDescricao(produtoDto.getDescricaoProduto());
 
-					listaProdutosPedido.add(produtoPedido);
-				}
+				produtoPedido.setId(id);
+				produtoPedido.setQuantidade(produtoDto.getQuantidade());
+				produtoPedido.setValorVenda(produtoDto.getValorVenda());
+				produtoPedido.setProduto(produto);
+				produtoPedido.setPedido(pedido);
+
+				listaProdutosPedido.add(produtoPedido);
 			}
 		}
 		return listaProdutosPedido;
