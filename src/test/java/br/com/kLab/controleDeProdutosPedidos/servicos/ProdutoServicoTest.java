@@ -34,7 +34,6 @@ class ProdutoServicoTest {
 	@InjectMocks
 	private ProdutoServico produtoServico;
 
-	private Integer idProduto;
 	private Produto produtoMock;
 	private Departamento departamento;
 	
@@ -46,33 +45,32 @@ class ProdutoServicoTest {
 	public void executarAntesCadaTest() {
 		MockitoAnnotations.openMocks(this);
 
-		idProduto = 1;
 		departamento =  new Departamento(1, "Ferramentas", new ArrayList<Produto>());
-		produtoMock = new Produto(idProduto, "Martelo", 50.0, departamento, new ArrayList<ProdutoPedido>());
+		produtoMock = new Produto(1, "Martelo", 50.0, departamento, new ArrayList<ProdutoPedido>());
 	}
 	
 	/**
-	 * Testa a consulta do produto por id. 
+	 * Testa a consulta do {@link Produto} por id. 
 	 * Configura o mock para retornar os dados simulados, chama o método da camada
 	 * de serviço e realiza as verificações.
 	 */
 	@Test
 	public void testDadoProdutoExistente_quandoConsultarPorId_entaoDeveRetornarProduto() {
 		// Given: Configura os dados de entrada.
-		given(repositorioProduto.findById(idProduto)).willReturn(Optional.of(produtoMock));
+		given(repositorioProduto.findById(produtoMock.getCodigo())).willReturn(Optional.of(produtoMock));
 
 		// When: Executa o método a ser testado.
-		Produto resultado = produtoServico.consultarPorId(idProduto);
+		Produto resultado = produtoServico.consultarPorId(produtoMock.getCodigo());
 
 		// Then: Verifica os resultados.
-		assertNotNull(resultado, "O Produto não deve ser nulo");
-		assertEquals(idProduto, resultado.getCodigo(), "O código do Produto deve ser 1");
-		assertEquals("Martelo", resultado.getDescricao(), "A descrição do Produto deve ser Martelo");
-		assertEquals(50.0, resultado.getPreco(), "O preço do Produto deve ser 50.0");
+		assertNotNull(resultado, "O Produto não deve ser nulo.");
+		assertEquals(produtoMock.getCodigo(), resultado.getCodigo(), "O código do Produto deve ser 1.");
+		assertEquals("Martelo", resultado.getDescricao(), "A descrição do Produto deve ser Martelo.");
+		assertEquals(50.0, resultado.getPreco(), "O preço do Produto deve ser 50.0.");
 		assertEquals(departamento.getCodigo(), resultado.getDepartamento().getCodigo(),
-				"O código do Departamento deve ser 1");
+				"O código do Departamento deve ser 1.");
 		assertEquals(departamento.getDescricao(), resultado.getDepartamento().getDescricao(),
-				"A descrção do Departamento deve ser Ferramentas");
+				"A descrção do Departamento deve ser Ferramentas.");
 	}
 
 	/**
@@ -82,14 +80,14 @@ class ProdutoServicoTest {
 	@Test
 	public void testDadoProdutoNaoExistente_quandoConsultarPorId_entaoDeveLancarExcecao() {
 		// Given: Configura os dados de entrada.
-		given(repositorioProduto.findById(idProduto)).willReturn(Optional.empty());
+		given(repositorioProduto.findById(produtoMock.getCodigo())).willReturn(Optional.empty());
 
 		// When: Executa o método a ser testado.
 		// Then: Verifica os resultados.
 		ObjetoNaoEncontradoExcecao exception = assertThrows(ObjetoNaoEncontradoExcecao.class, () -> {
-			produtoServico.consultarPorId(idProduto);
+			produtoServico.consultarPorId(produtoMock.getCodigo());
 		}, "A exceção ObjetoNaoEncontradoExcecao não foi lançada.");
 
-		assertEquals("Produto com o Id "+ idProduto +" não foi encontrado na base de dados do sistema!", exception.getMessage());
+		assertEquals("Produto com o Id "+ produtoMock.getCodigo() +" não foi encontrado na base de dados do sistema!", exception.getMessage());
 	}
 }
