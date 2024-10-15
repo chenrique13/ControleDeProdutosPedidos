@@ -42,7 +42,6 @@ class ProdutoPedidoServicoTest {
 	@InjectMocks
 	private ProdutoPedidoServico produtoPedidoServico;
 
-	private ProdutoPedidoId produtoPedidoId;
 	private ProdutoPedido produtoPedidoMock;
 	private Pedido pedido;
 	private Produto produto;
@@ -59,7 +58,7 @@ class ProdutoPedidoServicoTest {
 		pedido = new Pedido(1, Date.from(LocalDate.of(2024, 10, 2).atStartOfDay(ZoneId.systemDefault()).toInstant()),
 				new ArrayList<ProdutoPedido>());
 		produto = new Produto(1, "Martelo", 50.0, departamento, new ArrayList<ProdutoPedido>());
-		produtoPedidoId = new ProdutoPedidoId(produto.getCodigo(), pedido.getNumero());
+		ProdutoPedidoId produtoPedidoId = new ProdutoPedidoId(produto.getCodigo(), pedido.getNumero());
 
 		produtoPedidoMock = new ProdutoPedido(produtoPedidoId, 2, produto.getPreco(), produto, pedido);
 	}
@@ -72,15 +71,15 @@ class ProdutoPedidoServicoTest {
 	@Test
 	public void testDadoProdutoPedidoExistente_quandoConsultarPorId_entaoDeveRetornarProdutoPedido() {
 		// Given: Configura os dados de entrada.
-		given(repositorioProdutoPedido.findById(produtoPedidoId)).willReturn(Optional.of(produtoPedidoMock));
+		given(repositorioProdutoPedido.findById(produtoPedidoMock.getId())).willReturn(Optional.of(produtoPedidoMock));
 
 		// When: Executa o método a ser testado.
-		ProdutoPedido resultado = produtoPedidoServico.consultarPorId(produtoPedidoId);
+		ProdutoPedido resultado = produtoPedidoServico.consultarPorId(produtoPedidoMock.getId());
 
 		// Then: Verifica os resultados.
 		assertNotNull(resultado, "O produtoPedido não deve ser nulo");
-		assertEquals(produtoPedidoId, resultado.getId(), "Os IDs devem ser iguais");
-		assertEquals(2, resultado.getQuantidade(), "As quantidades devem ser iguais a 2");
+		assertEquals(produtoPedidoMock.getId(), resultado.getId(), "Os IDs devem ser iguais");
+		assertEquals(produtoPedidoMock.getQuantidade(), resultado.getQuantidade(), "As quantidades devem ser iguais a 2");
 		assertEquals(produto.getPreco(), resultado.getValorVenda(), "Os valores devem ser iguais");
 		assertEquals(produto, resultado.getProduto(), "Os produtos devem ser iguais");
 		assertEquals(pedido, resultado.getPedido(), "Os pedidos devem ser iguais");
@@ -93,15 +92,15 @@ class ProdutoPedidoServicoTest {
 	@Test
 	public void testDadoProdutoPedidoInexistente_quandoConsultarPorId_entaoDeveLancarExcecao() {
 		// Given: Configura os dados de entrada.
-		given(repositorioProdutoPedido.findById(produtoPedidoId)).willReturn(Optional.empty());
+		given(repositorioProdutoPedido.findById(produtoPedidoMock.getId())).willReturn(Optional.empty());
 
 		// When: Executa o método a ser testado.
 		// Then: Verifica se a exceção é lançada.
 		ObjetoNaoEncontradoExcecao exception = assertThrows(ObjetoNaoEncontradoExcecao.class, () -> {
-			produtoPedidoServico.consultarPorId(produtoPedidoId);
+			produtoPedidoServico.consultarPorId(produtoPedidoMock.getId());
 		}, "A exceção ObjetoNaoEncontradoExcecao não foi lançada.");
 
-		assertEquals("ProdutoPedido com o Id " + produtoPedidoId + " não foi encontrado na base de dados do sistema!",
+		assertEquals("ProdutoPedido com o Id " + produtoPedidoMock.getId() + " não foi encontrado na base de dados do sistema!",
 				exception.getMessage());
 	}
 
@@ -111,14 +110,14 @@ class ProdutoPedidoServicoTest {
 	@Test
 	public void testDadoProdutoPedidoExistente_quandoExcluirProdutoPedido_entaoDeveExcluirComSucesso() {
 	    // Given: Configura os dados de entrada.
-	    given(repositorioProdutoPedido.findById(produtoPedidoId)).willReturn(Optional.of(produtoPedidoMock));
-	    doNothing().when(repositorioProdutoPedido).deleteById(produtoPedidoId);
+	    given(repositorioProdutoPedido.findById(produtoPedidoMock.getId())).willReturn(Optional.of(produtoPedidoMock));
+	    doNothing().when(repositorioProdutoPedido).deleteById(produtoPedidoMock.getId());
 
 	    // When: Executa o método a ser testado.
-	    produtoPedidoServico.excluirProdutoPedido(produtoPedidoId);
+	    produtoPedidoServico.excluirProdutoPedido(produtoPedidoMock.getId());
 
 	    // Then: Verifica se o método deleteById foi chamado.
-	    verify(repositorioProdutoPedido, times(1)).deleteById(produtoPedidoId);
+	    verify(repositorioProdutoPedido, times(1)).deleteById(produtoPedidoMock.getId());
 	}
 
 	/**
@@ -128,15 +127,15 @@ class ProdutoPedidoServicoTest {
 	@Test
 	public void testDadoProdutoPedidoInexistente_quandoExcluirProdutoPedido_entaoDeveLancarExcecao() {
 		// Given: Configura os dados de entrada.
-		given(repositorioProdutoPedido.findById(produtoPedidoId)).willReturn(Optional.empty());
+		given(repositorioProdutoPedido.findById(produtoPedidoMock.getId())).willReturn(Optional.empty());
 
 		// When: Executa o método a ser testado.
 		// Then: Verifica se a exceção é lançada.
 		ObjetoNaoEncontradoExcecao exception = assertThrows(ObjetoNaoEncontradoExcecao.class, () -> {
-			produtoPedidoServico.excluirProdutoPedido(produtoPedidoId);
+			produtoPedidoServico.excluirProdutoPedido(produtoPedidoMock.getId());
 		}, "A exceção ObjetoNaoEncontradoExcecao não foi lançada.");
 
-		assertEquals("ProdutoPedido com o Id " + produtoPedidoId + " não foi encontrado na base de dados do sistema!",
+		assertEquals("ProdutoPedido com o Id " + produtoPedidoMock.getId() + " não foi encontrado na base de dados do sistema!",
 				exception.getMessage());
 	}
 	
