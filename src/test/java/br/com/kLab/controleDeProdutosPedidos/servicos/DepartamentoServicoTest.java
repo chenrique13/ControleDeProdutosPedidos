@@ -61,7 +61,7 @@ public class DepartamentoServicoTest {
 	}
 
 	/**
-	 * Testa a lista de departamento com produtos. 
+	 * Testa a lista de departamento com produtos.
 	 * Configura o mock para retornar os dados simulados, chama o método da camada
 	 * de serviço e realiza as verificações.
 	 */
@@ -74,24 +74,36 @@ public class DepartamentoServicoTest {
 		List<DepartamentoComProdutoDto> resultado = departamentoServico.consultarDepartamentoComProdutoPorCodigo(1, 2);
 
 		// Then: Verifica os resultados.
-		assertNotNull(resultado);
-		assertEquals(2, resultado.size(), "O numero de departamentos deve ser 2");
+		assertNotNull(resultado, "O DepartamentoComProdutoDto não deve ser nulo");
+		assertEquals(2, resultado.size(), "O numero de DepartamentoComProdutoDtos deve ser 2");
 
 		DepartamentoComProdutoDto primeiroDepartamento = resultado.get(0);
-		assertEquals(1, primeiroDepartamento.getCodigoDepartamento());
-		assertEquals("Ferramentas", primeiroDepartamento.getDescricaoDepartamento());
-		assertEquals(2, primeiroDepartamento.getProdutos().size(), "O departamento deve ter 2 produtos");
+		assertEquals(1, primeiroDepartamento.getCodigoDepartamento(),
+				"O código do primeiro DepartamentoComProdutoDto tem que ser 1.");
+		assertEquals("Ferramentas", primeiroDepartamento.getDescricaoDepartamento(),
+				"A descrição do primeiro DepartamentoComProdutoDto tem que ser Ferramentas.");
+		assertEquals(2, primeiroDepartamento.getProdutos().size(),
+				"O DepartamentoComProdutoDto deve ter 2 ProdutoDepartamentoDto.");
 
 		ProdutoDepartamentoDto primeiroProduto = primeiroDepartamento.getProdutos().get(0);
-		assertEquals(101, primeiroProduto.getCodigoProduto());
-		assertEquals("Martelo", primeiroProduto.getDescricaoProduto());
-		assertEquals(50.0, primeiroProduto.getPreco(), 0.01);
+		assertEquals(101, primeiroProduto.getCodigoProduto(),
+				"O código do primeiro ProdutoDepartamentoDto tem que ser 101.");
+		assertEquals("Martelo", primeiroProduto.getDescricaoProduto(),
+				"A descrição do primeiro ProdutoDepartamentoDto tem que ser Martelo.");
+		assertEquals(50.0, primeiroProduto.getPreco(), "O preço do primeiro ProdutoDepartamentoDto tem que ser 50.0");
+
+		ProdutoDepartamentoDto segundoProduto = primeiroDepartamento.getProdutos().get(1);
+		assertEquals(102, segundoProduto.getCodigoProduto(),
+				"O código do segundo ProdutoDepartamentoDto tem que ser 102.");
+		assertEquals("Chave de fenda", segundoProduto.getDescricaoProduto(),
+				"A descrição do segundo ProdutoDepartamentoDto tem que ser Chave de fenda.");
+		assertEquals(20.0, segundoProduto.getPreco(), "O preço do segundo ProdutoDepartamentoDto tem que ser 20.0");
 	}
 
 	/**
 	 * Testa o lançamento de exceção {@link ObjetoNaoEncontradoExcecao]} quando a
-	 * lista de departamento com produtos for vazia. 
-	 * Configura o mock para retornar os dados simulados, verifica se a exceção é 
+	 * lista de departamento com produtos for vazia.
+	 * Configura o mock para retornar os dados simulados, verifica se a exceção é
 	 * lançada quando não há departamentos e se a mensagem da exceção correspondente.
 	 * 
 	 */
@@ -105,7 +117,7 @@ public class DepartamentoServicoTest {
 		// Then: Verifica os resultados.
 		ObjetoNaoEncontradoExcecao exception = assertThrows(ObjetoNaoEncontradoExcecao.class, () -> {
 			departamentoServico.consultarDepartamentoComProdutoPorCodigo(1, 2);
-		});
+		}, "A exceção ObjetoNaoEncontradoExcecao não foi lançada.");
 
 		assertEquals(
 				"Nenhum departamento encontrado na base de dados do sistema no intervalo de códigos: Código inicial = 1, Código final = 2",
@@ -125,7 +137,7 @@ public class DepartamentoServicoTest {
 				.converterDepartamentosEmDtos(listaDepartamentos);
 
 		// Then: Verifica os resultados.
-		assertNotNull(resultado);
+		assertNotNull(resultado, "O DepartamentoComProdutoDto não deve ser nulo");
 		assertEquals(1, resultado.size(), "O número de departamentos deve ser 1");
 
 		DepartamentoComProdutoDto departamentoDto = resultado.get(0);
@@ -135,17 +147,21 @@ public class DepartamentoServicoTest {
 		List<ProdutoDepartamentoDto> listaProdutosDto = departamentoDto.getProdutos();
 		assertEquals(2, listaProdutosDto.size(), "O departamento deve ter 2 produtos");
 
-		ProdutoDepartamentoDto produtoDto1 = listaProdutosDto.get(0);
-		assertEquals(101, produtoDto1.getCodigoProduto());
-		assertEquals("Martelo", produtoDto1.getDescricaoProduto());
-		assertEquals(50.0, produtoDto1.getPreco(), 0.01);
+		ProdutoDepartamentoDto primeiroProduto = listaProdutosDto.get(0);
+		assertEquals(101, primeiroProduto.getCodigoProduto(),
+				"O código do primeiro ProdutoDepartamentoDto tem que ser 101.");
+		assertEquals("Martelo", primeiroProduto.getDescricaoProduto(),
+				"A descrição do primeiro ProdutoDepartamentoDto tem que ser Martelo.");
+		assertEquals(50.0, primeiroProduto.getPreco(), "O preço do primeiro ProdutoDepartamentoDto tem que ser 50.0");
 
-		ProdutoDepartamentoDto produtoDto2 = listaProdutosDto.get(1);
-		assertEquals(102, produtoDto2.getCodigoProduto());
-		assertEquals("Chave de fenda", produtoDto2.getDescricaoProduto());
-		assertEquals(20.0, produtoDto2.getPreco(), 0.01);
+		ProdutoDepartamentoDto segundoProduto = listaProdutosDto.get(1);
+		assertEquals(102, segundoProduto.getCodigoProduto(),
+				"O código do segundo ProdutoDepartamentoDto tem que ser 102.");
+		assertEquals("Chave de fenda", segundoProduto.getDescricaoProduto(),
+				"A descrição do segundo ProdutoDepartamentoDto tem que ser Chave de fenda.");
+		assertEquals(20.0, segundoProduto.getPreco(), "O preço do segundo ProdutoDepartamentoDto tem que ser 20.0");
 	}
-	
+
 	/**
 	 * Testa a lista de departamento com produtos vazia.
 	 */
@@ -153,12 +169,12 @@ public class DepartamentoServicoTest {
 	public void testDadoListaVaziaDeDepartamentos_quandoConverterDepartamentos_entaoDeveRetornarListaVazia() {
 		// Given: Configura os dados de entrada.
 		List<Departamento> listaVazia = Collections.emptyList();
-		
+
 		// When: Executa o método a ser testado.
 		List<DepartamentoComProdutoDto> resultado = departamentoServico.converterDepartamentosEmDtos(listaVazia);
-		
+
 		// Then: Verifica os resultados.
-		assertNotNull(resultado);
+		assertNotNull(resultado, "O DepartamentoComProdutoDto não deve ser nulo");
 		assertTrue(resultado.isEmpty(), "A lista de departamentos deve estar vazia");
 	}
 
