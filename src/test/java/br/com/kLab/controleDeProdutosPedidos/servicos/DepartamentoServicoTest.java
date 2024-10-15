@@ -66,7 +66,7 @@ public class DepartamentoServicoTest {
 	 * de serviço e realiza as verificações.
 	 */
 	@Test
-	public void testDeveRetornarListaDeDepartamentosComProdutos() {
+	public void testDadoDepartamentosComProdutos_quandoConsultarDepartamentosPorCodigo_entaoDeveRetornarListaDeDepartamentosComProdutos() {
 		// Given: Configura os dados de entrada.
 		given(repositorioDepartamento.consultarDepartamentoComProdutoPorCodigo(1, 2)).willReturn(dadosMock);
 
@@ -96,43 +96,27 @@ public class DepartamentoServicoTest {
 	 * 
 	 */
 	@Test
-	public void testDeveLancarExcecaoQuandoNenhumDepartamentoEncontrado() {
+	public void testDadoNenhumDepartamento_quandoConsultarDepartamentosPorCodigo_entaoDeveLancarExcecao() {
 		// Given: Configura os dados de entrada.
 		given(repositorioDepartamento.consultarDepartamentoComProdutoPorCodigo(1, 2))
 				.willReturn(Collections.emptyList());
 
 		// When: Executa o método a ser testado.
+		// Then: Verifica os resultados.
 		ObjetoNaoEncontradoExcecao exception = assertThrows(ObjetoNaoEncontradoExcecao.class, () -> {
 			departamentoServico.consultarDepartamentoComProdutoPorCodigo(1, 2);
 		});
 
-		// Then: Verifica os resultados.
 		assertEquals(
 				"Nenhum departamento encontrado na base de dados do sistema no intervalo de códigos: Código inicial = 1, Código final = 2",
 				exception.getMessage());
 	}
 
 	/**
-	 * Testa a lista de departamento com produtos vazia.
-	 */
-	@Test
-	public void testDeveRetornarListaVaziaQuandoNenhumDepartamento() {
-		// Given: Configura os dados de entrada.
-		List<Departamento> listaVazia = Collections.emptyList();
-
-		// When: Executa o método a ser testado.
-		List<DepartamentoComProdutoDto> resultado = departamentoServico.converterDepartamentosEmDtos(listaVazia);
-
-		// Then: Verifica os resultados.
-		assertNotNull(resultado);
-		assertTrue(resultado.isEmpty(), "A lista de departamentos deve estar vazia");
-	}
-
-	/**
 	 * Testa a conversão de uma lista de {@link Departamento} para uma lista de {@link DepartamentoComProdutoDto}.
 	 */
 	@Test
-	public void testDeveConverterDepartamentosEmDtos() {
+	public void testDadoListaDeDepartamentos_quandoConverterDepartamentos_entaoDeveConverterParaDtos() {
 		// Given: Configura os dados de entrada.
 		List<Departamento> listaDepartamentos = Arrays.asList(departamento);
 
@@ -160,6 +144,22 @@ public class DepartamentoServicoTest {
 		assertEquals(102, produtoDto2.getCodigoProduto());
 		assertEquals("Chave de fenda", produtoDto2.getDescricaoProduto());
 		assertEquals(20.0, produtoDto2.getPreco(), 0.01);
+	}
+	
+	/**
+	 * Testa a lista de departamento com produtos vazia.
+	 */
+	@Test
+	public void testDadoListaVaziaDeDepartamentos_quandoConverterDepartamentos_entaoDeveRetornarListaVazia() {
+		// Given: Configura os dados de entrada.
+		List<Departamento> listaVazia = Collections.emptyList();
+		
+		// When: Executa o método a ser testado.
+		List<DepartamentoComProdutoDto> resultado = departamentoServico.converterDepartamentosEmDtos(listaVazia);
+		
+		// Then: Verifica os resultados.
+		assertNotNull(resultado);
+		assertTrue(resultado.isEmpty(), "A lista de departamentos deve estar vazia");
 	}
 
 }
