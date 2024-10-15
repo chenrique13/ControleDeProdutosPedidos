@@ -65,12 +65,14 @@ class ProdutoServicoTest {
 		Produto resultado = produtoServico.consultarPorId(idProduto);
 
 		// Then: Verifica os resultados.
-		assertNotNull(resultado);
-		assertEquals(idProduto, resultado.getCodigo());
-		assertEquals("Martelo", resultado.getDescricao());
-		assertEquals(50.0, resultado.getPreco());
-		assertEquals(departamento.getCodigo(), resultado.getDepartamento().getCodigo());
-		assertEquals(departamento.getDescricao(), resultado.getDepartamento().getDescricao());
+		assertNotNull(resultado, "O Produto não deve ser nulo");
+		assertEquals(idProduto, resultado.getCodigo(), "O código do Produto deve ser 1");
+		assertEquals("Martelo", resultado.getDescricao(), "A descrição do Produto deve ser Martelo");
+		assertEquals(50.0, resultado.getPreco(), "O preço do Produto deve ser 50.0");
+		assertEquals(departamento.getCodigo(), resultado.getDepartamento().getCodigo(),
+				"O código do Departamento deve ser 1");
+		assertEquals(departamento.getDescricao(), resultado.getDepartamento().getDescricao(),
+				"A descrção do Departamento deve ser Ferramentas");
 	}
 
 	/**
@@ -86,7 +88,7 @@ class ProdutoServicoTest {
 		// Then: Verifica os resultados.
 		ObjetoNaoEncontradoExcecao exception = assertThrows(ObjetoNaoEncontradoExcecao.class, () -> {
 			produtoServico.consultarPorId(idProduto);
-		});
+		}, "A exceção ObjetoNaoEncontradoExcecao não foi lançada.");
 
 		assertEquals("Produto com o Id "+ idProduto +" não foi encontrado na base de dados do sistema!", exception.getMessage());
 	}
