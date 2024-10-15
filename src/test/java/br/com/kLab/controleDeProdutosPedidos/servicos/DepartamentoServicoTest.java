@@ -74,8 +74,8 @@ public class DepartamentoServicoTest {
 		List<DepartamentoComProdutoDto> resultado = departamentoServico.consultarDepartamentoComProdutoPorCodigo(1, 2);
 
 		// Then: Verifica os resultados.
-		assertNotNull(resultado, "O DepartamentoComProdutoDto não deve ser nulo");
-		assertEquals(2, resultado.size(), "O numero de DepartamentoComProdutoDtos deve ser 2");
+		assertNotNull(resultado, "O DepartamentoComProdutoDto não deve ser nulo.");
+		assertEquals(2, resultado.size(), "O numero de DepartamentoComProdutoDtos deve ser 2.");
 
 		DepartamentoComProdutoDto primeiroDepartamento = resultado.get(0);
 		assertEquals(1, primeiroDepartamento.getCodigoDepartamento(),
@@ -90,14 +90,14 @@ public class DepartamentoServicoTest {
 				"O código do primeiro ProdutoDepartamentoDto tem que ser 101.");
 		assertEquals("Martelo", primeiroProduto.getDescricaoProduto(),
 				"A descrição do primeiro ProdutoDepartamentoDto tem que ser Martelo.");
-		assertEquals(50.0, primeiroProduto.getPreco(), "O preço do primeiro ProdutoDepartamentoDto tem que ser 50.0");
+		assertEquals(50.0, primeiroProduto.getPreco(), "O preço do primeiro ProdutoDepartamentoDto tem que ser 50.0.");
 
 		ProdutoDepartamentoDto segundoProduto = primeiroDepartamento.getProdutos().get(1);
 		assertEquals(102, segundoProduto.getCodigoProduto(),
 				"O código do segundo ProdutoDepartamentoDto tem que ser 102.");
 		assertEquals("Chave de fenda", segundoProduto.getDescricaoProduto(),
 				"A descrição do segundo ProdutoDepartamentoDto tem que ser Chave de fenda.");
-		assertEquals(20.0, segundoProduto.getPreco(), "O preço do segundo ProdutoDepartamentoDto tem que ser 20.0");
+		assertEquals(20.0, segundoProduto.getPreco(), "O preço do segundo ProdutoDepartamentoDto tem que ser 20.0.");
 	}
 
 	/**
@@ -137,29 +137,29 @@ public class DepartamentoServicoTest {
 				.converterDepartamentosEmDtos(listaDepartamentos);
 
 		// Then: Verifica os resultados.
-		assertNotNull(resultado, "O DepartamentoComProdutoDto não deve ser nulo");
-		assertEquals(1, resultado.size(), "O número de departamentos deve ser 1");
+		assertNotNull(resultado, "O DepartamentoComProdutoDto não deve ser nulo.");
+		assertEquals(1, resultado.size(), "O número de departamentos deve ser 1.");
 
 		DepartamentoComProdutoDto departamentoDto = resultado.get(0);
 		assertEquals(1, departamentoDto.getCodigoDepartamento());
 		assertEquals("Ferramentas", departamentoDto.getDescricaoDepartamento());
 
 		List<ProdutoDepartamentoDto> listaProdutosDto = departamentoDto.getProdutos();
-		assertEquals(2, listaProdutosDto.size(), "O departamento deve ter 2 produtos");
+		assertEquals(2, listaProdutosDto.size(), "O departamento deve ter 2 produtos.");
 
 		ProdutoDepartamentoDto primeiroProduto = listaProdutosDto.get(0);
 		assertEquals(101, primeiroProduto.getCodigoProduto(),
 				"O código do primeiro ProdutoDepartamentoDto tem que ser 101.");
 		assertEquals("Martelo", primeiroProduto.getDescricaoProduto(),
 				"A descrição do primeiro ProdutoDepartamentoDto tem que ser Martelo.");
-		assertEquals(50.0, primeiroProduto.getPreco(), "O preço do primeiro ProdutoDepartamentoDto tem que ser 50.0");
+		assertEquals(50.0, primeiroProduto.getPreco(), "O preço do primeiro ProdutoDepartamentoDto tem que ser 50.0.");
 
 		ProdutoDepartamentoDto segundoProduto = listaProdutosDto.get(1);
 		assertEquals(102, segundoProduto.getCodigoProduto(),
 				"O código do segundo ProdutoDepartamentoDto tem que ser 102.");
 		assertEquals("Chave de fenda", segundoProduto.getDescricaoProduto(),
 				"A descrição do segundo ProdutoDepartamentoDto tem que ser Chave de fenda.");
-		assertEquals(20.0, segundoProduto.getPreco(), "O preço do segundo ProdutoDepartamentoDto tem que ser 20.0");
+		assertEquals(20.0, segundoProduto.getPreco(), "O preço do segundo ProdutoDepartamentoDto tem que ser 20.0.");
 	}
 
 	/**

@@ -78,11 +78,11 @@ class ProdutoPedidoServicoTest {
 
 		// Then: Verifica os resultados.
 		assertNotNull(resultado, "O produtoPedido não deve ser nulo");
-		assertEquals(produtoPedidoMock.getId(), resultado.getId(), "Os IDs devem ser iguais");
-		assertEquals(produtoPedidoMock.getQuantidade(), resultado.getQuantidade(), "As quantidades devem ser iguais a 2");
-		assertEquals(produto.getPreco(), resultado.getValorVenda(), "Os valores devem ser iguais");
-		assertEquals(produto, resultado.getProduto(), "Os produtos devem ser iguais");
-		assertEquals(pedido, resultado.getPedido(), "Os pedidos devem ser iguais");
+		assertEquals(produtoPedidoMock.getId(), resultado.getId(), "Os IDs devem ser iguais.");
+		assertEquals(produtoPedidoMock.getQuantidade(), resultado.getQuantidade(), "As quantidades devem ser iguais a 2.");
+		assertEquals(produto.getPreco(), resultado.getValorVenda(), "Os valores devem ser iguais.");
+		assertEquals(produto, resultado.getProduto(), "Os produtos devem ser iguais.");
+		assertEquals(pedido, resultado.getPedido(), "Os pedidos devem ser iguais.");
 	}
 
 	/**
