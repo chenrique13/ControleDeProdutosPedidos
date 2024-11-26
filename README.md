@@ -6,7 +6,7 @@ O projeto inclui testes unitários para garantir a qualidade do código e utiliz
 
 ## Tecnologias Utilizadas
 
-- **Java 21**
+- **Java 17**
 - **Spring Boot 3**
 - **Swagger**
 - **Maven**
@@ -17,7 +17,7 @@ O projeto inclui testes unitários para garantir a qualidade do código e utiliz
 
 Antes de começar, verifique se você tem as seguintes ferramentas instaladas em sua máquina:
 
-- [Java JDK 21](https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html)
+- [Java JDK 17](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
 - [Maven](https://maven.apache.org/download.cgi)
 - [PostgreSQL](https://www.postgresql.org/download/)
 
