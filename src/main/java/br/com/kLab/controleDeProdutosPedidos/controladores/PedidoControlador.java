@@ -133,7 +133,7 @@ public class PedidoControlador {
 		if (pedidoDtoAtualizado != null) {
 			return ResponseEntity.ok(pedidoDtoAtualizado);
 		}
-		return ResponseEntity.internalServerError().build();
+		return ResponseEntity.notFound().build();
 	}
 
 	/**
