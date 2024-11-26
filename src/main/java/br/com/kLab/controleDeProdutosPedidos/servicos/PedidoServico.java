@@ -210,24 +210,20 @@ public class PedidoServico {
 	 * @return {@link PedidoComProdutoDto}
 	 */
 	private PedidoComProdutoDto converterParaPedidosComProdutoDto(Pedido pedido) {
-		if (pedido != null) {
-			List<ProdutoPedidoTotalDto> listaProdutoPedidoTotalDto = new ArrayList<ProdutoPedidoTotalDto>();
+		List<ProdutoPedidoTotalDto> listaProdutoPedidoTotalDto = new ArrayList<ProdutoPedidoTotalDto>();
 
-			for (ProdutoPedido produtoPedido : pedido.getProdutosPedido()) {
-				ProdutoPedidoTotalDto produtoPedidoTotalDto = new ProdutoPedidoTotalDto(
-						produtoPedido.getProduto().getCodigo(), produtoPedido.getProduto().getDescricao(),
-						produtoPedido.getQuantidade(), produtoPedido.getValorVenda(),
-						produtoPedido.valorTotalProduto());
+		for (ProdutoPedido produtoPedido : pedido.getProdutosPedido()) {
+			ProdutoPedidoTotalDto produtoPedidoTotalDto = new ProdutoPedidoTotalDto(
+					produtoPedido.getProduto().getCodigo(), produtoPedido.getProduto().getDescricao(),
+					produtoPedido.getQuantidade(), produtoPedido.getValorVenda(), produtoPedido.valorTotalProduto());
 
-				listaProdutoPedidoTotalDto.add(produtoPedidoTotalDto);
-			}
-
-			PedidoComProdutoDto pedidosComProdutoDto = new PedidoComProdutoDto(pedido.getNumero(), pedido.getData(),
-					listaProdutoPedidoTotalDto);
-
-			return pedidosComProdutoDto;
+			listaProdutoPedidoTotalDto.add(produtoPedidoTotalDto);
 		}
-		return null;
+
+		PedidoComProdutoDto pedidosComProdutoDto = new PedidoComProdutoDto(pedido.getNumero(), pedido.getData(),
+				listaProdutoPedidoTotalDto);
+
+		return pedidosComProdutoDto;
 	}
 
 	/**
